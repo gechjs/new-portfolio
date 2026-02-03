@@ -1,0 +1,142 @@
+:root {
+  --primary: #4f46e5;
+  --accent: #facc15;
+  --background: #ffffff;
+  --foreground: #111827;
+  --muted-foreground: #6b7280;
+  --destructive: #ef4444;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 5rem;
+}
+
+/* HeroSection */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.inline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ccc;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.button-hero {
+  background-color: var(--primary);
+  color: var(--background);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.button-hero:hover {
+  background-color: #4338ca;
+  transform: translateY(-2px);
+}
+
+.button-hero-outline {
+  border: 2px solid rgba(79, 70, 229, 0.5);
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button-hero-outline:hover {
+  border-color: var(--primary);
+  background-color: rgba(79, 70, 229, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Animated Code Block */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.code-line {
+  display: flex;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.line-number {
+  width: 2rem;
+  color: var(--muted-foreground);
+  user-select: none;
+}
+
+/* Floating Particles */
+.floating-particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(79, 70, 229, 0.3);
+  pointer-events: none;
+}
