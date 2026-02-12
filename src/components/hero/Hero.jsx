@@ -144,7 +144,7 @@ const Hero = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1 }}
                     >
-                      GIZACHEW
+                      
                     </motion.h1>
                     <motion.h2 
                       className="text-4xl md:text-6xl lg:text-7xl font-bold text-white/90"
@@ -153,7 +153,7 @@ const Hero = () => {
                       transition={{ delay: 0.3 }}
                     >
                       <span className="bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
-                        MOHAMMED
+                        GIZACHEW MOHAMMED
                       </span>
                     </motion.h2>
                   </div>
