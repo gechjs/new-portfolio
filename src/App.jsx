@@ -19,9 +19,9 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-black text-white">
       <Cursor />
-      <section id="Homepage">
+      <section id="Homepage" className="min-h-screen">
         {/* <Navbar /> */}
         {!showHero ? (
           <ParticleTextEffect onComplete={handleParticleComplete} />
@@ -29,17 +29,17 @@ const App = () => {
           <Hero />
         )}
       </section>
-      <section id="Services">
+      <section id="Services" className="min-h-screen">
         <Parallax type="services" />
       </section>
-      <section>
+      <section className="min-h-screen">
         <Services />
       </section>
-      <section id="Portfolio">
+      <section id="Portfolio" className="min-h-screen">
         <Parallax type="portfolio" />
       </section>
       <Portfolio />
-      <section id="Contact">
+      <section id="Contact" className="min-h-screen">
         <Contact />
       </section>
       {/* Framer Motion Crash Course */}
