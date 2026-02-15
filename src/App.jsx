@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/Navbar";
 import Parallax from "./components/parallax/Parallax";
 import Portfolio from "./components/portfolio/Portfolio";
 import Services from "./components/services/Services";
+import Certificates from "./components/certificates/Certificates";
 import { ParticleTextEffect } from "./components/particle-text-effect";
 import { useState } from "react";
 
@@ -39,6 +40,7 @@ const App = () => {
         <Parallax type="portfolio" />
       </section>
       <Portfolio />
+      <Certificates />
       <section id="Contact" className="min-h-screen">
         <Contact />
       </section>
