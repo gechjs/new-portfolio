@@ -7,9 +7,12 @@ import Navbar from "./components/navbar/Navbar";
 import Parallax from "./components/parallax/Parallax";
 import Portfolio from "./components/portfolio/Portfolio";
 import Services from "./components/services/Services";
+import Experience from "./components/experience/Experience";
 import Certificates from "./components/certificates/Certificates";
 import { ParticleTextEffect } from "./components/particle-text-effect";
 import { useState } from "react";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   const [showHero, setShowHero] = useState(false);
@@ -20,9 +23,10 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="bg-black text-white">
+      <Header />
       <Cursor />
-      <section id="Homepage" className="min-h-screen">
+      <section id="home" className="min-h-screen">
         {/* <Navbar /> */}
         {!showHero ? (
           <ParticleTextEffect onComplete={handleParticleComplete} />
@@ -30,23 +34,22 @@ const App = () => {
           <Hero />
         )}
       </section>
-      <section id="Services" className="min-h-screen">
+      <section id="services">
         <Parallax type="services" />
       </section>
-      <section className="min-h-screen">
-        <Services />
-      </section>
-      <section id="Portfolio" className="min-h-screen">
+      <Services />
+      <section id="portfolio">
         <Parallax type="portfolio" />
       </section>
+
       <Portfolio />
+      <Experience />
       <Certificates />
-      <section id="Contact" className="min-h-screen">
+      <section id="contact">
         <Contact />
       </section>
-      {/* Framer Motion Crash Course */}
-      {/* <Test/>
-    <Test/> */}
+      <Footer />
+      
     </div>
   );
 };

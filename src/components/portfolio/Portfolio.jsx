@@ -596,11 +596,33 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive }) => {
 
 // ---------- Navigation Bar Component (new) ----------
 const PortfolioNavigation = ({ activeIndex, total, onNavigate }) => {
+  const { scrollY } = useScroll();
+  const [isVisible, setIsVisible] = useState(true);
+  
+  // Hide navigation when scrolling near the end of Portfolio
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const viewportHeight = window.innerHeight;
+    const scrollThreshold = viewportHeight * 0.3; // Hide when 30% from bottom
+    
+    // Get scroll position relative to document
+    const scrollPercentage = latest / (document.documentElement.scrollHeight - viewportHeight);
+    
+    // Hide when scrolled past 85% of the page (before Certificates section)
+    if (scrollPercentage > 0.85) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+  });
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 1, type: "spring", stiffness: 100, damping: 20 }}
+      animate={{ 
+        y: isVisible ? 0 : 100, 
+        opacity: isVisible ? 1 : 0 
+      }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
       style={{
         position: 'sticky',
         bottom: '2rem',
@@ -690,7 +712,9 @@ const Portfolio = () => {
       style={{ 
         backgroundColor: 'black', 
         color: 'white', 
-        position: 'relative'
+        position: 'relative',
+        scrollSnapType: 'y mandatory',
+        scrollBehavior: 'smooth'
       }}
     >
       {/* Global gradient overlay */}
