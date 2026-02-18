@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Twitter, Instagram, Code, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Heart } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,8 +8,6 @@ const Footer = () => {
   const socialLinks = [
     { icon: Github, href: 'https://github.com/gechjs', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/gizachew-mohammed', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/gechjs', label: 'Twitter' },
-    { icon: Instagram, href: 'https://instagram.com/gechjs', label: 'Instagram' },
   ];
 
   const scrollToSection = (sectionId) => {
