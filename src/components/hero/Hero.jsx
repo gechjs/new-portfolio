@@ -22,6 +22,22 @@ import {
 const Hero = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
+  
+  // Speed controls for particle effects
+  const particleSpeed = {
+    binaryRain: {
+      minDuration: 8,    // Faster: 8s (was 15s)
+      maxDuration: 12,   // Faster: 12s (was 20s)
+      maxDelay: 2        // Faster: 2s (was 5s)
+    },
+    gradientOrbs: {
+      orb1Duration: 4,   // Faster: 4s (was 8s)
+      orb2Duration: 5    // Faster: 5s (was 10s)
+    },
+    cursorLight: {
+      responseTime: 0.2  // Faster: 0.2s (was 0.4s)
+    }
+  }
 
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e
@@ -49,7 +65,7 @@ const Hero = () => {
           scale: [1, 1.1, 1],
           opacity: [0.15, 0.25, 0.15]
         }}
-        transition={{ duration: 8, repeat: Infinity }}
+        transition={{ duration: particleSpeed.gradientOrbs.orb1Duration, repeat: Infinity }}
       />
       <motion.div 
         className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tr from-pink-600/10 to-transparent rounded-full blur-3xl"
@@ -57,7 +73,7 @@ const Hero = () => {
           scale: [1, 1.2, 1],
           opacity: [0.15, 0.25, 0.15]
         }}
-        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+        transition={{ duration: particleSpeed.gradientOrbs.orb2Duration, repeat: Infinity, delay: 1 }}
       />
 
       {/* Enhanced Dynamic Cursor Light */}
@@ -66,7 +82,7 @@ const Hero = () => {
         animate={{
           background: `radial-gradient(800px at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(168, 85, 247, 0.12), transparent 80%)`
         }}
-        transition={{ type: "tween", duration: 0.4 }}
+        transition={{ type: "tween", duration: particleSpeed.cursorLight.responseTime }}
       />
 
       {/* Binary Code Rain Effect */}
@@ -78,9 +94,9 @@ const Hero = () => {
             initial={{ y: -100 }}
             animate={{ y: '100vh' }}
             transition={{
-              duration: Math.random() * 20 + 15,
+              duration: Math.random() * (particleSpeed.binaryRain.maxDuration - particleSpeed.binaryRain.minDuration) + particleSpeed.binaryRain.minDuration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: Math.random() * particleSpeed.binaryRain.maxDelay,
               ease: "linear"
             }}
             style={{

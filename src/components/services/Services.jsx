@@ -107,57 +107,6 @@ const Services = () => {
     }
   ];
 
-  const stats = [
-    { number: "50+", label: "Projects", icon: Rocket, color: "text-purple-400" },
-    { number: "30+", label: "Clients", icon: Users, color: "text-cyan-400" },
-    { number: "100%", label: "Satisfaction", icon: Target, color: "text-emerald-400" },
-    { number: "4+", label: "Years", icon: Zap, color: "text-orange-400" },
-  ];
-
-  const processSteps = [
-    { 
-      step: "01", 
-      title: "Discovery & Planning", 
-      description: "Understanding requirements, defining scope, and creating detailed project roadmap.",
-      icon: Target,
-      color: "from-purple-500 to-pink-500"
-    },
-    { 
-      step: "02", 
-      title: "Design & Prototyping", 
-      description: "Creating wireframes, mockups, and interactive prototypes for validation.",
-      icon: Palette,
-      color: "from-cyan-500 to-blue-500"
-    },
-    { 
-      step: "03", 
-      title: "Development", 
-      description: "Agile development with clean code practices and regular iterations.",
-      icon: Code,
-      color: "from-emerald-500 to-green-500"
-    },
-    { 
-      step: "04", 
-      title: "Testing & QA", 
-      description: "Comprehensive testing including unit, integration, and user acceptance testing.",
-      icon: Shield,
-      color: "from-orange-500 to-amber-500"
-    },
-    { 
-      step: "05", 
-      title: "Deployment", 
-      description: "Smooth deployment with monitoring setup and performance optimization.",
-      icon: Rocket,
-      color: "from-rose-500 to-pink-500"
-    },
-    { 
-      step: "06", 
-      title: "Maintenance", 
-      description: "Ongoing support, updates, and feature enhancements.",
-      icon: BarChart,
-      color: "from-violet-500 to-purple-500"
-    },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -245,11 +194,9 @@ const Services = () => {
           {/* Header with glitch effect */}
           <motion.div variants={itemVariants} className="text-center mb-20">
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-black/50 backdrop-blur-lg border border-white/10 rounded-full mb-8 relative overflow-hidden group">
-              <Terminal className="w-5 h-5 text-purple-400 relative z-10" />
-              <span className="text-sm font-semibold text-white tracking-wider relative z-10">
-                $ cat /services
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+             
+
+              
             </div>
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 relative">
@@ -273,27 +220,7 @@ const Services = () => {
             variants={containerVariants}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-20"
           >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -5 }}
-                className="relative"
-              >
-                <div className="relative p-6 bg-black/40 backdrop-blur-lg rounded-2xl border border-white/10 overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-white/10">
-                      <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">{stat.number}</h3>
-                      <p className="text-sm text-gray-300 font-medium">{stat.label}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            
           </motion.div>
 
           {/* Services Cards – Circuit Board Style */}
@@ -420,67 +347,6 @@ const Services = () => {
             </div>
           </motion.div>
 
-          {/* Development Process – Circuit Timeline */}
-          <motion.div variants={containerVariants} className="mb-24">
-            <div className="flex items-center gap-3 mb-12">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                <Layers className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white">Development Process</h2>
-            </div>
-
-            <div className="relative">
-              {/* Circuit path line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-purple-500/50 via-pink-500/50 to-cyan-500/50 hidden md:block" />
-              
-              <div className="space-y-12 md:space-y-0 relative">
-                {processSteps.map((step, index) => {
-                  const isEven = index % 2 === 0;
-                  return (
-                    <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      className={`relative flex flex-col md:flex-row items-center ${isEven ? '' : 'md:flex-row-reverse'} mb-12 md:mb-0`}
-                    >
-                      {/* Step number with pulsing ring */}
-                      <div className="relative z-10 mb-6 md:mb-0 md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                        <div className="relative">
-                          <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg`}>
-                            <span className="text-white font-bold text-xl">{step.step}</span>
-                          </div>
-                          <motion.div
-                            className="absolute inset-0 rounded-full border-2 border-white/30"
-                            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Content card */}
-                      <div className={`md:w-5/12 ${isEven ? 'md:pr-16' : 'md:pl-16'}`}>
-                        <motion.div
-                          className="relative group"
-                          whileHover={{ y: -5 }}
-                        >
-                          <div className="absolute -inset-0.5 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl blur opacity-0 group-hover:opacity-20 transition duration-500" />
-                          <div className="relative bg-black/40 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className={`p-2 rounded-lg bg-gradient-to-br ${step.color} bg-opacity-20`}>
-                                <step.icon className="w-5 h-5 text-white" />
-                              </div>
-                              <h3 className="text-xl font-bold text-white">{step.title}</h3>
-                            </div>
-                            <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
-                          </div>
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-
           {/* CTA Terminal Style */}
           <motion.div variants={itemVariants} className="flex justify-center mt-20">
             <motion.a
@@ -490,9 +356,8 @@ const Services = () => {
               whileTap={{ scale: 0.95 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10 flex items-center gap-3 text-xl font-mono">
-                <span className="text-purple-400">$</span>
-                <span className="text-white">./start-project.sh</span>
+              <span className="relative z-10 flex items-center gap-3 text-xl font-semibold text-white">
+                Start Project
                 <ChevronRight className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />

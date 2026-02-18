@@ -203,96 +203,55 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   );
 };
 
-// ---------- Project Preview Component (new) ----------
-const ProjectPreview = ({ item, position, onClick }) => {
-  const containerVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 100,
-      backdropFilter: "blur(0px)"
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      backdropFilter: "blur(20px)",
-      transition: { 
-        type: "spring", 
-        stiffness: 300,  // Fast/Snap
-        damping: 25,     // Controlled
-        mass: 0.8,       // Lighter
-        delayChildren: 0.05, 
-        staggerChildren: 0.05 // Very quick stagger
-      }
-    },
-    hover: { 
-      scale: 1.02,
-      backgroundColor: 'rgba(0,0,0,0.6)',
-      transition: { duration: 0.15 } // Snappy hover
-    }
-  };
-
-  const imageVariants = {
-    hidden: { x: -50, opacity: 0, rotate: -5 }, // Smaller offset for speed perception
-    visible: { 
-      x: 0, 
-      opacity: 1, 
-      rotate: 0,
-      transition: { type: "spring", stiffness: 250, damping: 20 } 
-    }
-  };
-
-  const textVariants = {
-    hidden: { x: 50, opacity: 0 }, // Smaller offset
-    visible: { 
-      x: 0, 
-      opacity: 1, 
-      transition: { type: "spring", stiffness: 250, damping: 20 } 
-    }
-  };
-
-  if (!item) return null;
-
+// ---------- Project Preview Component (updated with clean animation) ----------
+const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
   return (
     <motion.div
       className={`project-preview project-preview--${position}`}
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      whileHover="hover"
-      viewport={{ once: false, amount: 0.5 }}
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      whileHover={{ scale: 1.02, backgroundColor: 'rgba(0,0,0,0.6)' }}
+      transition={{
+        type: "spring",
+        stiffness: carouselSpeed.navigation.stiffness,
+        damping: carouselSpeed.navigation.damping
+      }}
       onClick={onClick}
       style={{
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 0, 
+        bottom: 0,
         height: '120px',
         background: 'rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(10px)',
         borderTop: '1px solid rgba(255,255,255,0.1)',
         display: 'flex',
         alignItems: 'center',
         padding: '0 3rem',
         cursor: 'pointer',
-        zIndex: 50,
-        overflow: 'hidden',
-        boxShadow: '0 -10px 50px rgba(0,0,0,0.5)',
+        zIndex: 0,
+        boxShadow: '0 -10px 50px rgba(0,0,0,0.5)'
       }}
     >
-      {/* Background gradient matching project */}
+      {/* Background gradient */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: `linear-gradient(90deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, transparent)`,
+        background: `linear-gradient(90deg, ${item.gradient}, transparent)`,
         opacity: 0.05,
         zIndex: -1
       }} />
-      
-      {/* Image Concept: "Show only the image" context - emphasized image */}
-      <motion.div 
-        variants={imageVariants}
-        style={{ 
-          width: '180px', 
-          height: '100%', 
+
+      {/* Image */}
+      <motion.div
+        initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
+        style={{
+          width: '180px',
+          height: '100%',
           position: 'absolute',
           left: 0,
           bottom: 0,
@@ -308,11 +267,16 @@ const ProjectPreview = ({ item, position, onClick }) => {
         />
       </motion.div>
 
-      {/* Spacer to push text to "other side" slightly */}
-      <div style={{ width: '160px' }}></div> 
+      {/* Spacer to push text right */}
+      <div style={{ width: '160px' }} />
 
       {/* Text Content */}
-      <motion.div variants={textVariants} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '1rem', zIndex: 10 }}>
+      <motion.div
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
+        style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '1rem', zIndex: 10 }}
+      >
         <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
           Next Project
         </span>
@@ -322,14 +286,16 @@ const ProjectPreview = ({ item, position, onClick }) => {
       </motion.div>
 
       {/* Action Arrow */}
-      <motion.div 
-        variants={textVariants}
+      <motion.div
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
         whileHover={{ x: 10 }}
-        style={{ 
-          opacity: 0.8, 
-          color: 'white', 
-          display: 'flex', 
-          alignItems: 'center', 
+        transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
+        style={{
+          opacity: 0.8,
+          color: 'white',
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
           width: '50px',
           height: '50px',
@@ -345,84 +311,59 @@ const ProjectPreview = ({ item, position, onClick }) => {
   );
 };
 
-// ---------- Single Project Component – with previews ----------
-const Single = React.memo(({ item, index, prevItem, nextItem, onActive }) => {
-  const imageRef = useRef(null);
+// ---------- Single Project Component – updated with clean parallax and entry animations ----------
+const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
   const sectionRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
-  // Track scroll position for image parallax and other effects
+  const isEven = index % 2 === 0;
+
+  // Scroll progress for parallax (smoothed)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start center", "end center"]
   });
-
-  // Smooth out the scroll progress for parallax to prevent jitter
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: carouselSpeed.parallax.stiffness,
+    damping: carouselSpeed.parallax.damping,
     restDelta: 0.001
   });
 
-  const imageY = useTransform(smoothProgress, [0, 1], [-50, 50]); // Use smooth progress
-  const textY = useTransform(smoothProgress, [0, 1], [100, -100]); // Use smooth progress
+  // Parallax transforms – applied to inner wrappers, not to elements with entry animation
+  const imageParallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
+  const textParallaxY = useTransform(smoothProgress, [0, 1], [40, -40]);
 
-  const isEven = index % 2 === 0;
-
+  // Entry animation variants – simple fade + translate
   const containerVariants = {
-    hidden: { 
-      opacity: 0,
-      scale: 0.5, // Start smaller for dramatic effect
-      filter: "blur(10px)",
-    },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      filter: "blur(0px)",
-      transition: { 
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
         type: "spring",
-        stiffness: 60,
-        damping: 15,
+        stiffness: carouselSpeed.elements.stiffness,
+        damping: carouselSpeed.elements.damping,
         mass: 0.8,
-        delay: 0
+        delayChildren: 0.1,
+        staggerChildren: 0.1
       }
     }
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, x: isEven ? -100 : 100 }, // No scale/y conflict here
-    visible: { 
-      opacity: 1, 
+  const childVariants = {
+    hidden: { opacity: 0, x: isEven ? -30 : 30 },
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { 
+      transition: {
         type: "spring",
-        stiffness: 50,
-        damping: 15,
-        delay: 0.1 
+        stiffness: carouselSpeed.elements.stiffness,
+        damping: carouselSpeed.elements.damping
       }
     }
   };
 
-  const textVariants = {
-    hidden: { opacity: 0, x: isEven ? 100 : -100 }, // Use X instead of Y to avoid fighting parallax
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        type: "spring",
-        stiffness: 50,
-        damping: 15,
-        delay: 0.2
-      }
-    }
-  };
-
-  // Smooth scroll to another project section
   const scrollToProject = (targetId) => {
-    const element = document.getElementById(`project-${targetId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    document.getElementById(`project-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -431,162 +372,163 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive }) => {
       ref={sectionRef}
       className="portfolio-section"
       style={{
-        height: '100vh',
+        height: '80vh',
         position: 'relative',
         backgroundColor: 'black',
         color: 'white',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        scrollSnapAlign: 'center',       // center projects instead of start
+        scrollMarginTop: '10vh',          // add margin to account for progress bar
       }}
       initial="hidden"
       whileInView="visible"
-      viewport={{ amount: 0.5, once: false }}
+      viewport={{ amount: 0.3, once: true }}   // animate once, trigger earlier
       onViewportEnter={() => onActive(index)}
     >
-      {/* Animated background blobs (unchanged) */}
+      {/* Background blobs – unchanged */}
       <div className="absolute inset-0 opacity-30" style={{ background: item.bgPattern }} />
-
       <motion.div
         className="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl"
         style={{
           background: 'linear-gradient(135deg, rgba(0,0,0,0.95), rgba(0,0,0,0.7))',
           opacity: 0.6,
-          y: imageY // Use smoothed value
+          y: imageParallaxY
         }}
         animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-        transition={{ duration: 15, repeat: Infinity }}
+        transition={{ duration: carouselSpeed.floating.imageDuration, repeat: Infinity }}
       />
-
       <motion.div
         className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full blur-3xl"
-        style={{ 
+        style={{
           background: 'linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.5))',
           opacity: 0.7,
-          y: textY  // Use smoothed value
+          y: textParallaxY
         }}
         animate={{ scale: [1, 1.3, 1], rotate: [360, 0, 360] }}
-        transition={{ duration: 25, repeat: Infinity, delay: 2 }}
+        transition={{ duration: carouselSpeed.floating.textDuration, repeat: Infinity, delay: 2 }}
       />
-
-      {/* Subtle grid overlay */}
       <div className="absolute inset-0 opacity-5" style={{
         backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px),
                           linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
         backgroundSize: '60px 60px'
       }} />
 
-
-      {/* PREVIEW: Next project (bottom) - always shown if next project exists */}
+      {/* Next project preview */}
       {nextItem && (
         <ProjectPreview
           item={nextItem}
           position="bottom"
           onClick={() => scrollToProject(nextItem.id)}
+          carouselSpeed={carouselSpeed}
         />
       )}
 
-      {/* Main container */}
+      {/* Main content */}
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-        <motion.div 
+        <motion.div
           className={`wrapper ${isEven ? '' : 'row-reverse'}`}
           variants={containerVariants}
-          // Removing viewport/onViewportEnter from here as parent controls visibility state now
         >
-          {/* IMAGE CONTAINER with parallax */}
+          {/* Image container – parallax applied to inner wrapper */}
           <motion.div
-            ref={imageRef}
             className="imageContainer"
-            style={{ y: !isMobile ? imageY : 0 }}
-            variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ amount: 0.1, once: false }}
+            variants={childVariants}
           >
-            <div className="imageWrapper" style={{ position: 'relative', padding: '1.5rem', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+            <motion.div
+              className="imageWrapper"
+              style={{
+                position: 'relative',
+                padding: '1.5rem',
+                background: 'rgba(0,0,0,0.4)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                overflow: 'hidden',
+                y: !isMobile ? imageParallaxY : 0
+              }}
+            >
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
               <OptimizedImage
                 src={Array.isArray(item.img) ? item.img[0] : item.img}
                 alt={item.title}
                 whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: carouselSpeed.hover.duration }}
                 style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover' }}
               />
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* TEXT CONTAINER with parallax */}
+          {/* Text container – parallax applied to inner wrapper */}
           <motion.div
             className="textContainer"
-            style={{ y: !isMobile ? textY : 0 }}
-            variants={textVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ amount: 0.3, once: false }}
+            variants={childVariants}
           >
-            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
-              <span style={{ 
-                background: `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`, 
-                WebkitBackgroundClip: 'text', 
-                backgroundClip: 'text', 
-                WebkitTextFillColor: 'transparent',
-                color: '#ffffff',
-                filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))'
-              }}>
-                {item.title}
-              </span>
-            </h2>
+            <motion.div style={{ y: !isMobile ? textParallaxY : 0 }}>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
+                <span style={{
+                  background: `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`,
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: '#ffffff',
+                  filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))'
+                }}>
+                  {item.title}
+                </span>
+              </h2>
 
-            <p style={{ fontSize: '1.25rem', color: '#e5e7eb', lineHeight: 1.7, maxWidth: '600px', marginBottom: '2.5rem', fontWeight: '400' }}>
-              {item.desc}
-            </p>
+              <p style={{ fontSize: '1.25rem', color: '#e5e7eb', lineHeight: 1.7, maxWidth: '600px', marginBottom: '2.5rem', fontWeight: '400' }}>
+                {item.desc}
+              </p>
 
-            {/* Action Buttons (unchanged) */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              {item.links.map((link, i) => {
-                const isPrimary = i === 0;
-                return (
-                  <motion.a
-                    key={i}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      position: 'relative',
-                      padding: '0.875rem 2rem',
-                      borderRadius: '16px',
-                      fontWeight: '700',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
-                      background: isPrimary 
-                        ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})` 
-                        : 'rgba(255,255,255,0.08)',
-                      border: isPrimary 
-                        ? '1px solid rgba(255,255,255,0.2)' 
-                        : '1px solid rgba(255,255,255,0.15)',
-                      color: 'white',
-                      textDecoration: 'none',
-                      overflow: 'hidden',
-                      backdropFilter: 'blur(10px)',
-                      boxShadow: isPrimary 
-                        ? '0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.1)' 
-                        : '0 4px 15px rgba(0,0,0,0.2)',
-                      transition: 'all 0.3s ease'
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      {link.icon && <link.icon size={18} style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.3))' }} />}
-                      <span style={{ fontSize: '1rem', fontWeight: '600' }}>{link.text}</span>
-                      <ExternalLink size={14} style={{ opacity: 0.7, transition: 'all 0.3s ease' }} className="group-hover:opacity-100 group-hover:translate-x-1" />
-                    </span>
-                    {isPrimary && (
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.2), transparent)', opacity: 0, transition: 'opacity 0.3s ease' }} className="hover:opacity-100" />
-                    )}
-                  </motion.a>
-                );
-              })}
-            </div>
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                {item.links.map((link, i) => {
+                  const isPrimary = i === 0;
+                  return (
+                    <motion.a
+                      key={i}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        position: 'relative',
+                        padding: '0.875rem 2rem',
+                        borderRadius: '16px',
+                        fontWeight: '700',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        background: isPrimary
+                          ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`
+                          : 'rgba(255,255,255,0.08)',
+                        border: isPrimary
+                          ? '1px solid rgba(255,255,255,0.2)'
+                          : '1px solid rgba(255,255,255,0.15)',
+                        color: 'white',
+                        textDecoration: 'none',
+                        overflow: 'hidden',
+                        backdropFilter: 'blur(10px)',
+                        boxShadow: isPrimary
+                          ? '0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.1)'
+                          : '0 4px 15px rgba(0,0,0,0.2)',
+                        transition: 'all 0.3s ease'
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {link.icon && <link.icon size={18} style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.3))' }} />}
+                        <span style={{ fontSize: '1rem', fontWeight: '600' }}>{link.text}</span>
+                        <ExternalLink size={14} style={{ opacity: 0.7, transition: 'all 0.3s ease' }} className="group-hover:opacity-100 group-hover:translate-x-1" />
+                      </span>
+                      {isPrimary && (
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.2), transparent)', opacity: 0, transition: 'opacity 0.3s ease' }} className="hover:opacity-100" />
+                      )}
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -594,8 +536,8 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive }) => {
   );
 });
 
-// ---------- Navigation Bar Component (new) ----------
-const PortfolioNavigation = ({ activeIndex, total, onNavigate }) => {
+// ---------- Navigation Bar Component (unchanged) ----------
+const PortfolioNavigation = ({ activeIndex, total, onNavigate, carouselSpeed }) => {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
   
@@ -607,8 +549,8 @@ const PortfolioNavigation = ({ activeIndex, total, onNavigate }) => {
     // Get scroll position relative to document
     const scrollPercentage = latest / (document.documentElement.scrollHeight - viewportHeight);
     
-    // Hide when scrolled past 85% of the page (before Certificates section)
-    if (scrollPercentage > 0.85) {
+    // Hide when scrolled past 65% of page (well before Experience section)
+    if (scrollPercentage > 0.65) {
       setIsVisible(false);
     } else {
       setIsVisible(true);
@@ -622,7 +564,7 @@ const PortfolioNavigation = ({ activeIndex, total, onNavigate }) => {
         y: isVisible ? 0 : 100, 
         opacity: isVisible ? 1 : 0 
       }}
-      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+      transition={{ type: "spring", stiffness: carouselSpeed.navigation.stiffness, damping: carouselSpeed.navigation.damping }}
       style={{
         position: 'sticky',
         bottom: '2rem',
@@ -693,6 +635,15 @@ const Portfolio = () => {
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
+  
+  // Speed controls for carousel animations
+  const carouselSpeed = {
+    parallax: { stiffness: 400, damping: 25 },
+    elements: { stiffness: 350, damping: 18 },
+    hover: { duration: 0.2 },
+    floating: { imageDuration: 8, textDuration: 12 },
+    navigation: { stiffness: 150, damping: 15 }
+  };
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   
@@ -737,7 +688,7 @@ const Portfolio = () => {
         <h1 style={{ 
           fontSize: 'clamp(3rem, 4vw, 3.5rem)', 
           fontWeight: '800', 
-          background: 'linear-gradient(135deg, #ffffff, #e5e7eb, #9ca3af)',
+          background: 'linear-gradient(135deg, #a855f7, #ec4899, #06b6d4)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -764,6 +715,7 @@ const Portfolio = () => {
           prevItem={items[index - 1]}
           nextItem={items[index + 1]}
           onActive={setActiveIndex}
+          carouselSpeed={carouselSpeed}
         />
       ))}
 
@@ -772,10 +724,11 @@ const Portfolio = () => {
         activeIndex={activeIndex} 
         total={items.length} 
         onNavigate={scrollToProject} 
+        carouselSpeed={carouselSpeed}
       />
 
     </div>
   );
 };
 
-export default Portfolio; 
+export default Portfolio;
