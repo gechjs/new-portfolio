@@ -304,13 +304,21 @@ const Hero = () => {
                   transition={{ delay: 0.9 }}
                 >
                   {[
-                    { icon: Github, href: "#", label: "GitHub", color: "hover:bg-purple-500/10 hover:border-purple-500/30" },
-                    { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-pink-500/10 hover:border-pink-500/30" },
-                    { icon: Mail, href: "#", label: "Email", color: "hover:bg-orange-500/10 hover:border-orange-500/30" },
+                    { icon: Github, href: "https://github.com/gechjs", label: "GitHub", color: "hover:bg-purple-500/10 hover:border-purple-500/30", target: "_blank" },
+                    { icon: Linkedin, href: "https://www.linkedin.com/in/gizachew-mohammed/", label: "LinkedIn", color: "hover:bg-pink-500/10 hover:border-pink-500/30", target: "_blank" },
+                    { icon: Mail, href: "#contact", label: "Contact", color: "hover:bg-orange-500/10 hover:border-orange-500/30", target: "_self" },
                   ].map((social, index) => (
                     <motion.a
                       key={social.label}
                       href={social.href}
+                      target={social.target}
+                      rel={social.target === "_blank" ? "noopener noreferrer" : ""}
+                      onClick={(e) => {
+                        if (social.label === "Contact") {
+                          e.preventDefault();
+                          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                       className={`w-12 h-12 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 ${social.color}`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}

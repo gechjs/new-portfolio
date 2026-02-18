@@ -43,6 +43,9 @@ const App = () => {
       </section>
 
       <Portfolio />
+      <section id="experience">
+        <Parallax type="experience" />
+      </section>
       <Experience />
       <Certificates />
       <section id="contact">

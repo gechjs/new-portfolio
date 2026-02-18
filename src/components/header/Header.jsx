@@ -30,11 +30,11 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { href: '#home', label: 'Home', icon: '🏠' },
-    { href: '#services', label: 'Services', icon: '⚡' },
-    { href: '#portfolio', label: 'Portfolio', icon: '✨' },
-    { href: '#experience', label: 'Experience', icon: '💼' },
-    { href: '#contact', label: 'Contact', icon: '�' },
+    { href: '#home', label: 'Home' },
+    { href: '#services', label: 'Services' },
+    { href: '#portfolio', label: 'Portfolio' },
+    { href: '#experience', label: 'Experience' },
+    { href: '#contact', label: 'Contact' },
   ];
 
   const scrollToSection = (sectionId) => {
@@ -132,10 +132,7 @@ const Header = () => {
                   }}
                   whileHover={{ y: -2 }}
                 >
-                  <span className="relative z-10 flex items-center gap-2 text-gray-300 group-hover:text-white transition-colors duration-300">
-                    <span className="text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {item.icon}
-                    </span>
+                  <span className="relative z-10 text-gray-300 group-hover:text-white transition-colors duration-300">
                     <span className="text-sm font-medium">{item.label}</span>
                   </span>
                   
@@ -243,10 +240,7 @@ const Header = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <span className="flex items-center gap-3">
-                <span className="text-xl">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </span>
+              <span className="font-medium">{item.label}</span>
             </motion.a>
           ))}
         </div>

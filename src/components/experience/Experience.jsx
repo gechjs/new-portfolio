@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import {
   Calendar,
   MapPin,
@@ -17,6 +17,26 @@ import {
 } from 'lucide-react';
 
 const Experience = () => {
+  const experienceRef = useRef(null);
+  
+  // Parallax scroll effects
+  const { scrollYProgress } = useScroll({
+    target: experienceRef,
+    offset: ["start start", "end start"]
+  });
+  
+  const smoothScrollProgress = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.001
+  });
+  
+  // Parallax transforms for different elements
+  const bgY = useTransform(smoothScrollProgress, [0, 1], [0, -100]);
+  const titleY = useTransform(smoothScrollProgress, [0, 1], [0, -60]);
+  const timelineY = useTransform(smoothScrollProgress, [0, 1], [0, -40]);
+  const bgOpacity = useTransform(smoothScrollProgress, [0, 1], [0.15, 0.05]);
+  
   // Separate data for work and education
   const workItems = [
     {
@@ -228,24 +248,33 @@ const Experience = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden py-20" id="experience">
+    <div ref={experienceRef} className="min-h-screen bg-black text-white relative overflow-hidden py-20" id="experience">
       {/* Refined background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-black" />
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: `radial-gradient(circle at 20px 20px, rgba(255,255,255,0.02) 1px, transparent 1px)`,
-        backgroundSize: '40px 40px'
-      }} />
+      <motion.div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-black to-black" 
+        style={{ opacity: bgOpacity }}
+      />
+      <motion.div 
+        className="absolute inset-0 opacity-30" 
+        style={{
+          backgroundImage: `radial-gradient(circle at 20px 20px, rgba(255,255,255,0.02) 1px, transparent 1px)`,
+          backgroundSize: '40px 40px',
+          y: bgY
+        }}
+      />
 
-      {/* Floating orbs */}
+      {/* Floating orbs with parallax */}
       <motion.div
         className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-600/10 to-transparent rounded-full blur-3xl"
         animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, -30, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        style={{ y: bgY }}
       />
       <motion.div
         className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-tr from-purple-600/10 to-transparent rounded-full blur-3xl"
         animate={{ scale: [1, 1.3, 1], x: [0, -40, 0], y: [0, 40, 0] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        style={{ y: bgY }}
       />
 
       <div className="relative z-10 container mx-auto px-4 md:px-8">
@@ -256,6 +285,7 @@ const Experience = () => {
           viewport={{ once: true }}
           variants={containerVariants}
           className="max-w-4xl mx-auto text-center mb-20"
+          style={{ y: titleY }}
         >
           <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full mb-8">
             <Workflow className="w-5 h-5 text-purple-400" />
@@ -272,7 +302,10 @@ const Experience = () => {
         </motion.div>
 
         {/* Unified Timeline */}
-        <div className="relative max-w-5xl mx-auto">
+        <motion.div 
+          className="relative max-w-5xl mx-auto"
+          style={{ y: timelineY }}
+        >
           {/* Central line (animated) */}
           <motion.div
             initial={{ height: 0 }}
@@ -472,7 +505,7 @@ const Experience = () => {
               }
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
