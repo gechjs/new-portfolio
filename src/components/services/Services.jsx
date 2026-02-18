@@ -285,11 +285,7 @@ const Services = () => {
                                   <Icon className="w-7 h-7 text-white" />
                                 </div>
                               </div>
-                              {/* LED indicator (always on for services) */}
-                              <div className="absolute -top-1 -right-1 w-3 h-3">
-                                <div className="absolute inset-0 bg-purple-500 rounded-full animate-ping" />
-                                <div className="relative w-3 h-3 bg-purple-500 rounded-full" />
-                              </div>
+                              
                             </div>
                             <div className="flex-1">
                               <h3 className="text-2xl font-bold text-white mb-1">{service.title}</h3>
@@ -301,10 +297,7 @@ const Services = () => {
 
                           {/* Features as bullet points */}
                           <div className="mb-6">
-                            <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                              <Terminal className="w-4 h-4 text-purple-400" />
-                              <span>$ features.log</span>
-                            </h4>
+                          
                             <ul className="space-y-2">
                               {service.features.map((feature, i) => (
                                 <motion.li
