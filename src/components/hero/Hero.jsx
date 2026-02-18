@@ -18,6 +18,7 @@ import {
   Download,
   Circle
 } from 'lucide-react'
+import resumeFile from '../../assets/GIZACHEW-MOHAMMED-FlowCV-Resume-20260212.pdf';
 
 const Hero = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -278,6 +279,15 @@ const Hero = () => {
                     className="px-8 py-4 bg-transparent text-white/90 font-semibold rounded-xl border border-orange-500/40 hover:border-orange-500/60 hover:bg-orange-500/10 transition-all duration-300 group backdrop-blur-sm"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      // Create a link element and trigger download
+                      const link = document.createElement('a');
+                      link.href = resumeFile;
+                      link.download = 'Gizachew_Mohammed_Resume.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
                   >
                     <span className="flex items-center gap-2">
                       Download CV
