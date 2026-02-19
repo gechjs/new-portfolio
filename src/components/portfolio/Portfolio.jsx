@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect } from "react";
 import React from "react";
 import "./portfolio.scss";
 import { 
@@ -136,16 +136,10 @@ const items = [
   }
 ];
 
-// ---------- Optimized Image Component (unchanged) ----------
+// ---------- Optimized Image Component ----------
 const OptimizedImage = ({ src, alt, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  const placeholderColor = useMemo(() => {
-    const hash = src.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const hue = hash % 360;
-    return `linear-gradient(135deg, hsl(${hue}, 70%, 20%), hsl(${hue}, 80%, 30%))`;
-  }, [src]);
 
   return (
     <div className="image-wrapper" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -156,8 +150,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
           style={{
             position: 'absolute',
             inset: 0,
-            background: placeholderColor,
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(255, 255, 255, 0.05)',
             zIndex: 1,
           }}
         >
@@ -167,7 +160,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
             animation: 'shimmer 2s infinite',
           }} />
         </motion.div>
@@ -181,7 +174,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
         onError={() => setIsError(true)}
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 2 }}
         {...props}
       />
@@ -189,7 +182,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: '#1a1a1a',
+          background: 'rgba(255, 255, 255, 0.05)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
