@@ -58,7 +58,7 @@ const items = [
     img: garageImg,
     desc: "Revolutionary garage management ecosystem with real-time operational insights and advanced analytics for automotive businesses.",
     links: [
-      { url: "https://abegaragepro.com/", text: "Live Demo", icon: Rocket },
+      { url: "https://abebe-garage.netlify.app/", text: "Live Demo", icon: Rocket },
       { url: "https://github.com/gechjs/Abe-Garage-Pro", text: "GitHub", icon: Github }
     ],
     gradient: "from-purple-500 to-pink-600",
