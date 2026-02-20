@@ -88,7 +88,7 @@ const Hero = () => {
 
       {/* Binary Code Rain Effect */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute font-mono text-xs text-white/30 tracking-widest"

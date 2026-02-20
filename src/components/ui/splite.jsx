@@ -13,7 +13,7 @@ export function SplineScene({
   useEffect(() => {
     const timer = setTimeout(() => {
       setShouldLoad(true)
-    }, 50)
+    }, 100)
     return () => clearTimeout(timer)
   }, [])
 

@@ -135,7 +135,7 @@ class Particle {
   }
 }
 
-const DEFAULT_WORDS = ["Welcome", "To My Portfolio", "I am Gizachew Mohammed", "Full-Stack Developer", "AI & ML Enthusiast", "enjoy exploring"]
+const DEFAULT_WORDS = ["Welcome To My Portfolio", "I am Gizachew Mohammed", "Full-Stack Developer", "AI & ML Enthusiast", "enjoy exploring"]
 
 export function ParticleTextEffect({
   words = DEFAULT_WORDS,

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import React from "react";
-import "./portfolio.scss";
+import "./portfolio.scss"; // keep if you have additional styles
 import { 
   motion, 
   useScroll, 
@@ -196,7 +196,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   );
 };
 
-// ---------- Project Preview Component (updated with clean animation) ----------
+// ---------- Project Preview Component ----------
 const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
   return (
     <motion.div
@@ -304,7 +304,7 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
   );
 };
 
-// ---------- Single Project Component – updated with clean parallax and entry animations ----------
+// ---------- Single Project Component – with inline flex direction ----------
 const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
   const sectionRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -321,11 +321,11 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
     restDelta: 0.001
   });
 
-  // Parallax transforms – applied to inner wrappers, not to elements with entry animation
+  // Parallax transforms
   const imageParallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const textParallaxY = useTransform(smoothProgress, [0, 1], [40, -40]);
 
-  // Entry animation variants – simple fade + translate
+  // Entry animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -370,15 +370,15 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
         backgroundColor: 'black',
         color: 'white',
         overflow: 'hidden',
-        scrollSnapAlign: 'center',       // center projects instead of start
-        scrollMarginTop: '10vh',          // add margin to account for progress bar
+        scrollSnapAlign: 'center',
+        scrollMarginTop: '10vh',
       }}
       initial="hidden"
       whileInView="visible"
-      viewport={{ amount: 0.3, once: true }}   // animate once, trigger earlier
+      viewport={{ amount: 0.3, once: true }}
       onViewportEnter={() => onActive(index)}
     >
-      {/* Background blobs – unchanged */}
+      {/* Background blobs */}
       <div className="absolute inset-0 opacity-30" style={{ background: item.bgPattern }} />
       <motion.div
         className="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl"
@@ -418,14 +418,26 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
 
       {/* Main content */}
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+        {/* 
+          Use inline style to set flex direction based on index parity.
+          This guarantees the layout alternates regardless of external CSS.
+        */}
         <motion.div
-          className={`wrapper ${isEven ? '' : 'row-reverse'}`}
+          className="wrapper"
+          style={{
+            display: 'flex',
+            flexDirection: isEven ? 'row' : 'row-reverse',
+            alignItems: 'center',
+            gap: '4rem',
+            height: '100%'
+          }}
           variants={containerVariants}
         >
-          {/* Image container – parallax applied to inner wrapper */}
+          {/* Image container */}
           <motion.div
             className="imageContainer"
             variants={childVariants}
+            style={{ flex: 1 }}
           >
             <motion.div
               className="imageWrapper"
@@ -450,10 +462,11 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
             </motion.div>
           </motion.div>
 
-          {/* Text container – parallax applied to inner wrapper */}
+          {/* Text container */}
           <motion.div
             className="textContainer"
             variants={childVariants}
+            style={{ flex: 1 }}
           >
             <motion.div style={{ y: !isMobile ? textParallaxY : 0 }}>
               <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
@@ -529,20 +542,14 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
   );
 });
 
-// ---------- Navigation Bar Component (unchanged) ----------
+// ---------- Navigation Bar Component ----------
 const PortfolioNavigation = ({ activeIndex, total, onNavigate, carouselSpeed }) => {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
   
-  // Hide navigation when scrolling near the end of Portfolio
   useMotionValueEvent(scrollY, "change", (latest) => {
     const viewportHeight = window.innerHeight;
-    const scrollThreshold = viewportHeight * 0.3; // Hide when 30% from bottom
-    
-    // Get scroll position relative to document
     const scrollPercentage = latest / (document.documentElement.scrollHeight - viewportHeight);
-    
-    // Hide when scrolled past 65% of page (well before Experience section)
     if (scrollPercentage > 0.65) {
       setIsVisible(false);
     } else {
@@ -613,7 +620,7 @@ const PortfolioNavigation = ({ activeIndex, total, onNavigate, carouselSpeed }) 
   );
 };
 
-// ---------- Main Portfolio Component – with sticky progress bar and nav ----------
+// ---------- Main Portfolio Component ----------
 const Portfolio = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -629,7 +636,6 @@ const Portfolio = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   
-  // Speed controls for carousel animations
   const carouselSpeed = {
     parallax: { stiffness: 400, damping: 25 },
     elements: { stiffness: 350, damping: 18 },
@@ -699,7 +705,7 @@ const Portfolio = () => {
         }} className="progressBar"></motion.div>
       </div>
 
-      {/* Project list with prev/next awareness */}
+      {/* Project list */}
       {items.map((item, index) => (
         <Single
           key={item.id}
@@ -719,7 +725,6 @@ const Portfolio = () => {
         onNavigate={scrollToProject} 
         carouselSpeed={carouselSpeed}
       />
-
     </div>
   );
 };
