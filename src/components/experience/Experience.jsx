@@ -12,7 +12,8 @@ import {
   ChevronRight,
   Trophy,
   BookOpen,
-  Workflow
+  Workflow,
+  Award
 } from 'lucide-react';
 
 const Experience = () => {
@@ -107,7 +108,7 @@ const Experience = () => {
       subtitle: "Addis Ababa University",
       location: "Addis Ababa, Ethiopia",
       period: "02/2023 – 2027",
-      type: "In Progress",
+      type: ".",
       accent: "from-purple-500 to-pink-600",
       iconColor: "text-purple-400",
       achievements: [
@@ -146,22 +147,23 @@ const Experience = () => {
     },
     {
       icon: Trophy,
-      title: "Competitive Programming Training",
+      title: "Software Engineering & Problem Solving Program",
       subtitle: "Africa to Silicon Valley A2SV (backed by Google)",
       location: "Addis Ababa, Ethiopia",
-      period: "01/2025 – Present",
-      type: "In Progress",
+      period: "01/2025 – 01/2026",
+      type: "Completed",
       accent: "from-purple-500 to-pink-600",
       iconColor: "text-purple-400",
       achievements: [
-        "Completed year-long competitive programming training",
-        "Solved 1000+ problems on LeetCode and Codeforces combined",
-        "Achieved ELO contest rating of 1508 on LeetCode"
+        "Completed comprehensive software engineering and competitive programming training",
+        "Mastered problem-solving techniques and algorithm design",
+        "Developed strong system design and optimization skills"
       ],
       technologies: [
-        "Competitive Programming",
-        "Algorithm Design",
         "Problem Solving",
+        "Competitive Programming",
+        "System Design",
+        "Algorithm Design",
         "Code Optimization"
       ]
     },
@@ -204,6 +206,30 @@ const Experience = () => {
         "AI ethics",
         "Digital literacy"
       ]
+    },
+    {
+      icon: Award,
+      title: "Supervised Machine Learning: Regression and Classification",
+      subtitle: "Coursera",
+      location: "Online",
+      period: "2024",
+      type: "Completed",
+      accent: "from-purple-500 to-pink-600",
+      iconColor: "text-purple-400",
+      achievements: [
+        "Mastered regression and classification algorithms",
+        "Completed comprehensive supervised machine learning course",
+        "Gained practical experience with Python and scikit-learn"
+      ],
+      technologies: [
+        "Machine Learning",
+        "Regression",
+        "Classification",
+        "Python",
+        "Scikit-learn"
+      ],
+      credentialId: "NUJB432A6D9Y",
+      verificationUrl: "https://www.coursera.org/account/accomplishments/verify/NUJB432A6D9Y"
     }
   ];
 

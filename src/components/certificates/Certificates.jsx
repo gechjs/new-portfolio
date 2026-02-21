@@ -9,6 +9,7 @@ import evangadiBootcamp from "../../assets/certeficate/evangadi_bootcamp_certefi
 import evangadiInternship from "../../assets/certeficate/evangadi_internship.jpeg";
 import geezai from "../../assets/certeficate/geezai.jpeg";
 import udacityAI from "../../assets/certeficate/udacity_ai_certeficate.jpeg";
+import courseraML from "../../assets/certeficate/CourseraMl_page-0001.jpg";
 import gizachew from "../../assets/certeficate/Gizachew Mohammed (2)_page-0001.jpg";
 
 const certificates = [
@@ -54,6 +55,18 @@ const certificates = [
   },
   { 
     id: 5, 
+    img: courseraML, 
+    title: "Supervised Machine Learning: Regression and Classification", 
+    issuer: "Coursera",
+    date: "2026",
+    category: "Artificial Intelligence",
+    skills: ["Machine Learning", "Regression", "Classification", "Python", "Scikit-learn"],
+    description: "Completed comprehensive course on supervised machine learning techniques. Mastered regression and classification algorithms, model evaluation, and practical implementation using Python and scikit-learn.",
+    credentialId: "NUJB432A6D9Y",
+    verificationUrl: "https://www.coursera.org/account/accomplishments/verify/NUJB432A6D9Y"
+  },
+  { 
+    id: 6, 
     img: gizachew, 
     title: "National Competitive Programming Hackathon", 
     issuer: "National Competitive Programming Hackathon",
@@ -73,12 +86,12 @@ const Certificates = () => {
   const timerRef = useRef(null);
   const carouselRef = useRef(null);
 
-  // Auto-play (3 seconds)
+  // Auto-play (2.5 seconds)
   useEffect(() => {
     if (isPlaying) {
       timerRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % certificates.length);
-      }, 3000);
+      }, 2500);
     }
     return () => clearInterval(timerRef.current);
   }, [isPlaying]);
@@ -345,6 +358,32 @@ const Certificates = () => {
                         ))}
                       </div>
                     </div>
+
+                    {/* Verification - only show if verificationUrl exists */}
+                    {selectedCert.verificationUrl && (
+                      <div>
+                        <h4 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2">
+                          <Award className="w-4 h-4" /> Verification
+                        </h4>
+                        <div className="space-y-2">
+                          {selectedCert.credentialId && (
+                            <div>
+                              <span className="text-xs text-gray-500">Credential ID:</span>
+                              <p className="text-sm text-gray-300 font-mono">{selectedCert.credentialId}</p>
+                            </div>
+                          )}
+                          <a
+                            href={selectedCert.verificationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-3 py-2 bg-purple-500/20 text-purple-300 rounded-lg text-xs border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
+                          >
+                            <Maximize2 className="w-3 h-3" />
+                            Verify Certificate
+                          </a>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
