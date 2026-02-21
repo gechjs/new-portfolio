@@ -56,7 +56,7 @@ const Experience = () => {
       subtitle: "A2SV",
       location: "Addis Ababa, Ethiopia",
       period: "06/2025 – 08/2025",
-      type: "Contract",
+      type: "Part-time",
       accent: "from-purple-500 to-pink-600",
       iconColor: "text-purple-400",
       achievements: [
