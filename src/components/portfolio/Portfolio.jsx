@@ -325,32 +325,26 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
   const imageParallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const textParallaxY = useTransform(smoothProgress, [0, 1], [40, -40]);
 
-  // Entry animation variants
+  // Entry animation variants - simplified for professional look
   const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        type: "spring",
-        stiffness: carouselSpeed.elements.stiffness,
-        damping: carouselSpeed.elements.damping,
-        mass: 0.8,
-        delayChildren: 0.1,
-        staggerChildren: 0.1
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
 
   const childVariants = {
-    hidden: { opacity: 0, x: isEven ? -30 : 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: {
-        type: "spring",
-        stiffness: carouselSpeed.elements.stiffness,
-        damping: carouselSpeed.elements.damping
+        duration: 0.8,
+        ease: "easeOut"
       }
     }
   };
@@ -378,32 +372,10 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
       viewport={{ amount: 0.3, once: true }}
       onViewportEnter={() => onActive(index)}
     >
-      {/* Background blobs */}
-      <div className="absolute inset-0 opacity-30" style={{ background: item.bgPattern }} />
-      <motion.div
-        className="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.95), rgba(0,0,0,0.7))',
-          opacity: 0.6,
-          y: imageParallaxY
-        }}
-        animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-        transition={{ duration: carouselSpeed.floating.imageDuration, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full blur-3xl"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.5))',
-          opacity: 0.7,
-          y: textParallaxY
-        }}
-        animate={{ scale: [1, 1.3, 1], rotate: [360, 0, 360] }}
-        transition={{ duration: carouselSpeed.floating.textDuration, repeat: Infinity, delay: 2 }}
-      />
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px),
-                          linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
-        backgroundSize: '60px 60px'
+      {/* Clean background - Apple inspired */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(135deg, #000000 0%, #0a0a0a 100%)',
+        zIndex: 0
       }} />
 
       {/* Next project preview */}
@@ -447,16 +419,12 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
                 background: 'rgba(0,0,0,0.4)',
                 backdropFilter: 'blur(8px)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                overflow: 'hidden',
-                y: !isMobile ? imageParallaxY : 0
+                overflow: 'hidden'
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
               <OptimizedImage
                 src={Array.isArray(item.img) ? item.img[0] : item.img}
                 alt={item.title}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: carouselSpeed.hover.duration }}
                 style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover' }}
               />
             </motion.div>
@@ -491,7 +459,7 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
                 {item.links.map((link, i) => {
                   const isPrimary = i === 0;
                   return (
-                    <motion.a
+                    <a
                       key={i}
                       href={link.url}
                       target="_blank"
@@ -499,8 +467,8 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
                       style={{
                         position: 'relative',
                         padding: '0.875rem 2rem',
-                        borderRadius: '16px',
-                        fontWeight: '700',
+                        borderRadius: '12px',
+                        fontWeight: '600',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.75rem',
@@ -508,29 +476,21 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
                           ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`
                           : 'rgba(255,255,255,0.08)',
                         border: isPrimary
-                          ? '1px solid rgba(255,255,255,0.2)'
-                          : '1px solid rgba(255,255,255,0.15)',
+                          ? '1px solid rgba(255,255,255,0.15)'
+                          : '1px solid rgba(255,255,255,0.1)',
                         color: 'white',
                         textDecoration: 'none',
-                        overflow: 'hidden',
-                        backdropFilter: 'blur(10px)',
+                        transition: 'all 0.2s ease',
                         boxShadow: isPrimary
-                          ? '0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.1)'
-                          : '0 4px 15px rgba(0,0,0,0.2)',
-                        transition: 'all 0.3s ease'
+                          ? '0 4px 12px rgba(0,0,0,0.15)'
+                          : '0 2px 8px rgba(0,0,0,0.1)'
                       }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
                     >
                       <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        {link.icon && <link.icon size={18} style={{ filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.3))' }} />}
-                        <span style={{ fontSize: '1rem', fontWeight: '600' }}>{link.text}</span>
-                        <ExternalLink size={14} style={{ opacity: 0.7, transition: 'all 0.3s ease' }} className="group-hover:opacity-100 group-hover:translate-x-1" />
+                        {link.icon && <link.icon size={16} style={{ color: isPrimary ? 'white' : 'rgba(255,255,255,0.8)' }} />}
+                        <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{link.text}</span>
                       </span>
-                      {isPrimary && (
-                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.2), transparent)', opacity: 0, transition: 'opacity 0.3s ease' }} className="hover:opacity-100" />
-                      )}
-                    </motion.a>
+                    </a>
                   );
                 })}
               </div>
@@ -637,11 +597,11 @@ const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   
   const carouselSpeed = {
-    parallax: { stiffness: 400, damping: 25 },
-    elements: { stiffness: 350, damping: 18 },
-    hover: { duration: 0.2 },
-    floating: { imageDuration: 8, textDuration: 12 },
-    navigation: { stiffness: 150, damping: 15 }
+    parallax: { stiffness: 100, damping: 30 },
+    elements: { stiffness: 80, damping: 25 },
+    hover: { duration: 0.3 },
+    floating: { imageDuration: 0, textDuration: 0 },
+    navigation: { stiffness: 100, damping: 20 }
   };
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
