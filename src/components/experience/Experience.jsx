@@ -1,20 +1,5 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import {
-  Calendar,
-  MapPin,
-  Briefcase,
-  GraduationCap,
-  Code,
-  Users,
-  Target,
-  Zap,
-  ChevronRight,
-  Trophy,
-  BookOpen,
-  Workflow,
-  Award
-} from 'lucide-react';
 
 const Experience = () => {
   const experienceRef = useRef(null);
@@ -31,17 +16,14 @@ const Experience = () => {
   const titleY = useTransform(smoothProgress, [0, 1], [0, -40]);
   const lineOpacity = useTransform(smoothProgress, [0, 0.5], [1, 0.3]);
 
-  // Work items – using consistent gradients
+  // Work items – clean without icons
   const workItems = [
     {
-      icon: Briefcase,
       title: "Web Developer Intern",
       subtitle: "Evangadi Devshop",
       location: "Addis Ababa, Ethiopia",
       period: "04/2025 – 08/2025",
       type: "Internship",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
       achievements: [
         "Selected as Web Developer intern due to strong academic performance and consistent support in helping fellow students understand full-stack concepts",
         "Contributed to Evangadi Tutoring Platform (tutoring.evangadi.com) from initiation to production, focusing on frontend development",
@@ -51,14 +33,11 @@ const Experience = () => {
       technologies: ["React", "Frontend", "Agile", "UI/UX"]
     },
     {
-      icon: Code,
       title: "AI / Backend Engineer",
       subtitle: "A2SV",
       location: "Addis Ababa, Ethiopia",
       period: "06/2025 – 08/2025",
       type: "Part-time",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
       achievements: [
         "Collaborated with team to build AI-powered platform helping African professionals optimize CVs and find remote tech jobs",
         "Designed and implemented backend for AI chatbot in Go, enabling real-time personalized resume improvement suggestions",
@@ -67,14 +46,11 @@ const Experience = () => {
       technologies: ["Go", "MongoDB", "Gemini API", "AI/ML"]
     },
     {
-      icon: Users,
       title: "Mentor - Full-Stack Web Development",
       subtitle: "GDG AAU",
       location: "Addis Ababa, Ethiopia",
       period: "11/2024 – 02/2025",
       type: "Volunteer",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
       achievements: [
         "Led technical mentorship sessions on web development fundamentals including HTML, CSS, and introductory JavaScript",
         "Provided hands-on guidance and debugging support to 30+ students, building confidence and understanding core concepts",
@@ -83,14 +59,11 @@ const Experience = () => {
       technologies: ["Mentorship", "Web Dev", "Teaching", "Support"]
     },
     {
-      icon: Target,
       title: "DSA Mentor",
       subtitle: "GDG AAU",
       location: "Addis Ababa, Ethiopia",
       period: "10/2025 – Present",
       type: "Part-time / Volunteer",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
       achievements: [
         "Mentor students in Data Structures & Algorithms, guiding through coding challenges and problem-solving strategies",
         "Effectively manage mentorship alongside academic and professional commitments",
@@ -100,152 +73,11 @@ const Experience = () => {
     }
   ];
 
-  // Education items – same accent
-  const educationItems = [
-    {
-      icon: GraduationCap,
-      title: "BSc in Computer Science",
-      subtitle: "Addis Ababa University",
-      location: "Addis Ababa, Ethiopia",
-      period: "02/2023 – 2027",
-      type: ".",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Strong academic performance, consistent Dean's List",
-        "Relevant coursework: Computer Organization, OOP, Software Engineering, Advanced DB, Computer Networking, DSA"
-      ],
-      technologies: [
-        "Computer Organization",
-        "OOP",
-        "Software Engineering",
-        "Advanced DB",
-        "Computer Networking",
-        "DSA"
-      ]
-    },
-    {
-      icon: Code,
-      title: "Full-Stack Web Development Bootcamp",
-      subtitle: "Evangadi",
-      location: "Addis Ababa, Ethiopia",
-      period: "04/2024 – 10/2024",
-      type: "Completed",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Practical training with real-world projects, building multiple full-stack applications",
-        "Gained proficiency in version control, deployment, and software development lifecycle"
-      ],
-      technologies: [
-        "Full-stack",
-        "Version Control",
-        "Deployment",
-        "DSA",
-        "Software Dev"
-      ]
-    },
-    {
-      icon: Trophy,
-      title: "Software Engineering & Problem Solving Program",
-      subtitle: "Africa to Silicon Valley A2SV (backed by Google)",
-      location: "Addis Ababa, Ethiopia",
-      period: "01/2025 – 01/2026",
-      type: "Completed",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Completed comprehensive software engineering and competitive programming training",
-        "Mastered problem-solving techniques and algorithm design",
-        "Developed strong system design and optimization skills"
-      ],
-      technologies: [
-        "Problem Solving",
-        "Competitive Programming",
-        "System Design",
-        "Algorithm Design",
-        "Code Optimization"
-      ]
-    },
-    {
-      icon: BookOpen,
-      title: "AI Fundamentals",
-      subtitle: "Udacity",
-      location: "Online",
-      period: "11/2024 – 12/2024",
-      type: "Completed",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Industry-recognized certification covering AI concepts, Machine Learning, Neural Networks, and AI Ethics"
-      ],
-      technologies: [
-        "AI concepts",
-        "Machine Learning",
-        "Neural Networks",
-        "AI Ethics"
-      ]
-    },
-    {
-      icon: Zap,
-      title: "GeezX AI Bootcamp",
-      subtitle: "GeezX",
-      location: "Addis Ababa, Ethiopia",
-      period: "Completed",
-      type: "Completed",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Intensive AI training with hands-on projects and real-world applications",
-        "Explored AI foundations, tools, applied AI, ethics, and digital literacy"
-      ],
-      technologies: [
-        "AI foundations",
-        "AI tools",
-        "Applied AI",
-        "AI ethics",
-        "Digital literacy"
-      ]
-    },
-    {
-      icon: Award,
-      title: "Supervised Machine Learning: Regression and Classification",
-      subtitle: "Coursera",
-      location: "Online",
-      period: "2024",
-      type: "Completed",
-      accent: "from-purple-500 to-pink-600",
-      iconColor: "text-purple-400",
-      achievements: [
-        "Mastered regression and classification algorithms",
-        "Completed comprehensive supervised machine learning course",
-        "Gained practical experience with Python and scikit-learn"
-      ],
-      technologies: [
-        "Machine Learning",
-        "Regression",
-        "Classification",
-        "Python",
-        "Scikit-learn"
-      ],
-      credentialId: "NUJB432A6D9Y",
-      verificationUrl: "https://www.coursera.org/account/accomplishments/verify/NUJB432A6D9Y"
-    }
-  ];
-
-  // Sections with consistent accent
+  // Only work experience section
   const sections = [
     { 
       title: "Work Experience", 
-      icon: Briefcase, 
-      items: workItems,
-      accent: "from-orange-400 to-red-500"  // complementary for headers
-    },
-    { 
-      title: "Education", 
-      icon: GraduationCap, 
-      items: educationItems,
-      accent: "from-orange-400 to-red-500"
+      items: workItems
     }
   ];
 
@@ -310,13 +142,10 @@ const Experience = () => {
           style={{ y: titleY }}
         >
           <div className="inline-flex items-center gap-3 px-5 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full mb-6">
-            <Workflow className="w-4 h-4 text-purple-400" />
             <span className="text-xs font-medium tracking-widest text-white/70">JOURNEY</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-              Experience & Education
-            </span>
+          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
+            Work Experience
           </h1>
           <p className="text-lg text-zinc-400 max-w-xl mx-auto font-light">
             A curated timeline of professional growth and learning.
@@ -349,9 +178,6 @@ const Experience = () => {
                     className="relative flex justify-center -mb-2"
                   >
                     <div className="flex items-center gap-4 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl">
-                      <div className={`p-3 rounded-xl bg-gradient-to-br ${section.accent}`}>
-                        <section.icon className="w-5 h-5 text-white" />
-                      </div>
                       <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
                     </div>
                     {/* Dot on line */}
@@ -379,9 +205,9 @@ const Experience = () => {
                         variants={numberVariants}
                         animate={{ y: [0, -3, 0] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
-                        className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${item.accent} flex items-center justify-center shadow-lg border border-white/20`}
+                        className={`relative w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border border-white/20`}
                       >
-                        <span className="text-white font-semibold text-sm">
+                        <span className="text-black font-semibold text-sm">
                           {(i + 1).toString().padStart(2, '0')}
                         </span>
                       </motion.div>
@@ -396,25 +222,20 @@ const Experience = () => {
                         className="group bg-white/5 backdrop-blur-md rounded-xl border border-white/10 p-5 hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300 shadow-xl"
                       >
                         {/* Header */}
-                        <div className="flex items-start gap-3 mb-3">
-                          <div className={`p-2 rounded-lg bg-gradient-to-br ${item.accent} bg-opacity-20`}>
-                            <item.icon className={`w-4 h-4 text-purple-400`} />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                            <p className={`text-xs font-medium text-transparent bg-clip-text bg-gradient-to-r ${item.accent}`}>
-                              {item.subtitle}
-                            </p>
-                          </div>
+                        <div className="mb-3">
+                          <h3 className="text-lg font-semibold text-white mb-1">{item.title}</h3>
+                          <p className="text-xs font-medium text-white/70">
+                            {item.subtitle}
+                          </p>
                         </div>
 
                         {/* Meta */}
                         <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-3">
-                          <span className="flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
-                            <Calendar className="w-3 h-3" /> {item.period}
+                          <span className="bg-black/30 px-2 py-1 rounded-full">
+                            {item.period}
                           </span>
-                          <span className="flex items-center gap-1 bg-black/30 px-2 py-1 rounded-full">
-                            <MapPin className="w-3 h-3" /> {item.location}
+                          <span className="bg-black/30 px-2 py-1 rounded-full">
+                            {item.location}
                           </span>
                           <span className={`px-2 py-1 rounded-full text-xs ${
                             item.type.includes('Progress') ? 'bg-purple-500/10 text-purple-300' :
@@ -429,7 +250,7 @@ const Experience = () => {
                         <div className="space-y-1 mb-3">
                           {item.achievements.map((ach, j) => (
                             <div key={j} className="flex items-start gap-2 text-xs text-zinc-300">
-                              <ChevronRight className="w-3 h-3 text-purple-400/70 flex-shrink-0 mt-0.5" />
+                              <span className="text-white/70 flex-shrink-0 mt-0.5">•</span>
                               <span>{ach}</span>
                             </div>
                           ))}
@@ -445,7 +266,7 @@ const Experience = () => {
                         </div>
 
                         {/* Hover line */}
-                        <div className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r ${item.accent} w-0 group-hover:w-full transition-all duration-500 rounded-b-xl`} />
+                        <div className="absolute bottom-0 left-0 h-0.5 bg-white w-0 group-hover:w-full transition-all duration-500 rounded-b-xl" />
                       </motion.div>
                     </div>
                   </motion.div>

@@ -27,7 +27,6 @@ const useMediaQuery = (query) => {
 };
 
 // ---------- Project Data (unchanged) ----------
-import amazon from "../../assets/img/amazonClone.png";
 import habeshaPlayImg from "../../assets/img/habeshaplay.png";
 import garageImg from "../../assets/img/portfolio/abegarage.png";
 import evangadiForumImg from "../../assets/img/evangadiForum.png";
@@ -96,19 +95,6 @@ const items = [
   },
   {
     id: 5,
-    title: "Amazon Prime Clone",
-    img: amazon,
-    desc: "Feature-rich e-commerce platform with secure payment processing, user authentication, product filtering, and shopping cart functionality.",
-    links: [
-      { url: "https://amazon-clone63.netlify.app/", text: "Shop Demo", icon: Rocket }
-    ],
-    gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-orange-400",
-    bgPattern: "radial-gradient(circle at 60% 40%, rgba(249,115,22,0.1) 0%, transparent 50%)"
-  },
-  {
-    id: 6,
     title: "Evangadi Forum",
     img: evangadiForumImg,
     desc: "Developer community hub with real-time discussions, Q&A forums, user profiles, and knowledge sharing platform for developers.",
@@ -122,7 +108,7 @@ const items = [
     bgPattern: "radial-gradient(circle at 30% 80%, rgba(34,211,238,0.1) 0%, transparent 50%)"
   },
   {
-    id: 7,
+    id: 6,
     title: "Kibkab Pharmacy",
     img: [pharmacy0, pharmacy1, pharmacy2],
     desc: "Full-stack web application with React/TypeScript frontend and Go backend, featuring inventory management, sales tracking, customer management, and reporting for kibkab pharmacy operations.",
