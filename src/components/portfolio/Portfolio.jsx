@@ -127,15 +127,23 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // Handle both string URLs and imported modules
+  // Handle Vite asset URLs properly
   const getImageSrc = (src) => {
     if (typeof src === 'string') {
       return src;
     }
-    if (src && typeof src === 'object' && src.default) {
-      return src.default;
-    }
     if (src && typeof src === 'object') {
+      // Handle Vite's asset URL objects
+      if (src.src) {
+        return src.src;
+      }
+      if (src.default) {
+        return src.default;
+      }
+      // Handle array of images (like pharmacy project)
+      if (Array.isArray(src)) {
+        return src[0];
+      }
       return src;
     }
     return src;
@@ -146,7 +154,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   // Add fallback for development debugging
   useEffect(() => {
     if (process.env.NODE_ENV === 'development' && imageSrc) {
-      console.log('Image src:', imageSrc);
+      console.log('Image src:', imageSrc, 'Type:', typeof imageSrc);
     }
   }, [imageSrc]);
 
