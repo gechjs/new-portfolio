@@ -127,6 +127,29 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // Handle both string URLs and imported modules
+  const getImageSrc = (src) => {
+    if (typeof src === 'string') {
+      return src;
+    }
+    if (src && typeof src === 'object' && src.default) {
+      return src.default;
+    }
+    if (src && typeof src === 'object') {
+      return src;
+    }
+    return src;
+  };
+
+  const imageSrc = getImageSrc(src);
+
+  // Add fallback for development debugging
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && imageSrc) {
+      console.log('Image src:', imageSrc);
+    }
+  }, [imageSrc]);
+
   return (
     <div className="image-wrapper" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       {!isLoaded && (
@@ -152,7 +175,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
         </motion.div>
       )}
       <motion.img
-        src={src}
+        src={imageSrc}
         alt={alt}
         className={className}
         loading="lazy"
@@ -162,6 +185,7 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
         animate={{ opacity: isLoaded ? 1 : 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 2 }}
+        crossOrigin="anonymous"
         {...props}
       />
       {isError && (
