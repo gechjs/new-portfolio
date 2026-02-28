@@ -87,15 +87,14 @@ const Hero = () => {
                     </span>
                   </motion.button>
                   <motion.a
-                    href="/resume.pdf"
-                    download
+                    href="#contact"
                     className="px-8 py-4 bg-white/5 backdrop-blur-sm text-white font-medium rounded-2xl hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="flex items-center justify-center gap-2">
-                      Download Resume
-                      <Download className="w-5 h-5" />
+                      Hire Me
+                      <ArrowRight className="w-5 h-5" />
                     </span>
                   </motion.a>
                 </motion.div>
@@ -213,7 +212,7 @@ const ImageCard = ({ imageSrc }) => {
 
       {/* Image container with professional styling */}
       <motion.div
-        className="relative overflow-hidden rounded-[3rem] shadow-2xl shadow-black/80 border-2 border-pink-900/60 bg-black"
+        className="relative overflow-hidden rounded-[3rem] shadow-2xl shadow-black/80 border-4 border-pink-900/60 bg-black"
         style={{ transform: 'rotate(3deg)' }}
         whileHover={{ scale: 1.015, transform: 'rotate(0deg)', borderColor: '#ec4899' }}
         transition={{ type: "spring", stiffness: 280, damping: 22 }}

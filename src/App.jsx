@@ -9,6 +9,7 @@ import Portfolio from "./components/portfolio/Portfolio";
 import Services from "./components/services/Services";
 import Experience from "./components/experience/Experience";
 import Certificates from "./components/certificates/Certificates";
+import Skills from "./components/skills/Skills";
 import { ParticleTextEffect } from "./components/particle-text-effect";
 import { useState } from "react";
 import Header from "./components/header/Header";
@@ -43,6 +44,10 @@ const App = () => {
       </section>
 
       <Portfolio />
+      <section id="skills">
+        <Parallax type="skills" />
+      </section>
+      <Skills />
       <section id="experience">
         <Parallax type="experience" />
       </section>

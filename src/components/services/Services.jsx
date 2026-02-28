@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const Services = () => {
-  const ref = useRef();
+  const ref = useRef(null);
 
   const services = [
     {
@@ -31,106 +31,104 @@ const Services = () => {
       number: "05",
       title: "Database Design",
       description: "Database architecture, optimization, and management for SQL and NoSQL solutions to ensure data integrity and performance."
+    },
+    {
+      number: "06",
+      title: "App Development",
+      description: "Creating native and cross-platform mobile applications for iOS and Android, delivering seamless user experiences with modern frameworks."
     }
   ];
 
+  // Apple‑like easing curve
+  const transition = { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] };
+
   return (
-    <section className="services-section" id="services-section" style={{ padding: '100px 0', background: '#000', color: '#fff' }}>
-      <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 15px' }}>
-        <div className="row" style={{ display: 'flex', flexWrap: 'wrap', margin: '0 -15px' }}>
-          <div className="col-md-12" style={{ flex: '0 0 100%', maxWidth: '100%', padding: '0 15px' }}>
-            <div className="section-header text-center" style={{ marginBottom: '60px' }}>
-              <motion.h2 
-                className="section-title" 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '20px', color: '#fff' }}
-              >
-                My Quality Services
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                style={{ fontSize: '1.1rem', lineHeight: '1.6', color: '#ccc', maxWidth: '600px', margin: '0 auto' }}
-              >
-                I put your ideas and thus your wishes in the form of a unique web project that inspires you and your customers.
-              </motion.p>
-            </div>
-          </div>
-        </div>
-        <div className="row" style={{ display: 'flex', flexWrap: 'wrap', margin: '0 -15px' }}>
-          <div className="col-md-12" style={{ flex: '0 0 100%', maxWidth: '100%', padding: '0 15px' }}>
-            <div className="services-widget position-relative" style={{ position: 'relative' }}>
-              {services.map((service, index) => (
-                <motion.div 
-                  key={service.number}
-                  className={`service-item d-flex flex-wrap align-items-center ${index === 0 ? 'current' : ''}`}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
-                  whileHover={{ scale: 1.02 }}
-                  style={{
-                    background: index === 0 ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                    border: index === 0 ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '12px',
-                    padding: '30px',
-                    marginBottom: '20px',
-                    position: 'relative',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center'
+    <section className="bg-black text-white py-24 md:py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        {/* Section Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ...transition }}
+          className="text-center mb-16 md:mb-20"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.02em] mb-5 bg-gradient-to-br from-white via-zinc-100 to-pink-300 bg-clip-text text-transparent">
+            My Quality Services
+          </h2>
+          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed">
+            I put your ideas and thus your wishes in the form of a unique web project that inspires you and your customers.
+          </p>
+        </motion.div>
+
+        {/* Services List */}
+        <div className="max-w-4xl mx-auto space-y-4">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.number}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ...transition }}
+              whileHover="hover"
+              variants={{
+                hover: {
+                  y: -2,
+                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  borderColor: 'rgba(255,255,255,0.15)',
+                  boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
+                }
+              }}
+              className="group relative bg-zinc-900/20 border border-zinc-800/60 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6 backdrop-blur-sm transition-all duration-300"
+            >
+              {/* Left: number and title */}
+              <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-[240px]">
+                <motion.span 
+                  variants={{
+                    hover: { color: '#f472b6', scale: 1.05 }
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = index === 0 ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)';
-                    e.currentTarget.style.borderColor = index === 0 ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                  className="text-4xl md:text-5xl font-light text-zinc-600 transition-colors duration-200"
                 >
-                  <div className="left-box d-flex flex-wrap align-items-center" style={{ flex: '0 0 auto', marginRight: '20px', alignItems: 'center', display: 'flex' }}>
-                    <span className="number" style={{ fontSize: '2rem', fontWeight: '700', color: '#fff', marginRight: '15px', minWidth: '40px' }}>
-                      {service.number}
-                    </span>
-                    <h3 className="service-title" style={{ fontSize: '1.3rem', fontWeight: '600', color: '#fff', margin: '0' }}>
-                      {service.title}
-                    </h3>
-                  </div>
-                  <div className="right-box" style={{ flex: '1' }}>
-                    <p style={{ fontSize: '0.95rem', lineHeight: '1.6', color: '#ccc', margin: '0' }}>
-                      {service.description}
-                    </p>
-                  </div>
-                  <i className="flaticon-up-right-arrow" style={{ position: 'absolute', top: '30px', right: '30px', fontSize: '1.2rem', color: '#666', transition: 'color 0.3s ease' }}></i>
-                  <button data-mfp-src="#service-wrapper" className="service-link modal-popup" style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', background: 'transparent', border: 'none', cursor: 'pointer', zIndex: '1' }}></button>
-                </motion.div>
-              ))}
-              <motion.div 
-                className="active-bg"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "108.8px" }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  width: '100%',
-                  background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent)',
-                  borderRadius: '12px',
-                  pointerEvents: 'none',
-                  zIndex: '-1'
+                  {service.number}
+                </motion.span>
+                <h3 className="text-xl md:text-2xl font-medium text-white tracking-[-0.01em]">
+                  {service.title}
+                </h3>
+              </div>
+
+              {/* Right: description */}
+              <div className="flex-1">
+                <p className="text-sm md:text-base text-zinc-400 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+
+              {/* Animated arrow */}
+              <motion.span
+                variants={{
+                  hover: { x: 4, y: -4, color: '#f472b6' }
                 }}
+                className="absolute top-6 right-6 md:top-8 md:right-8 text-2xl text-zinc-600 transition-colors"
+                aria-hidden="true"
+              >
+                ↗
+              </motion.span>
+
+              {/* Hidden modal trigger button (kept for functionality) */}
+              <button
+                data-mfp-src="#service-wrapper"
+                className="service-link modal-popup absolute inset-0 w-full h-full cursor-pointer z-10 rounded-3xl"
+                aria-label={`View details for ${service.title}`}
               />
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Subtle accent line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 0.2 }}
+          transition={{ duration: 1, delay: 1.2, ...transition }}
+          className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mt-20 md:mt-24"
+        />
       </div>
     </section>
   );

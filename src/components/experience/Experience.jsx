@@ -19,7 +19,51 @@ const Experience = () => {
   // Work items – clean without icons
   const workItems = [
     {
-      title: "Web Developer Intern",
+      title: "Freelance Software Developer",
+      subtitle: "Self-Employed",
+      location: "Remote",
+      period: "01/2023 – Present",
+      type: "Freelance",
+      achievements: [
+        "Designing and delivering high-quality software solutions for diverse clients, focusing on performance, scalability, and maintainable architecture",
+        "Translate business requirements into effective technical solutions by developing robust backend systems, optimized APIs and databases, and modern front-end applications",
+        "Ensure code quality through best practices, testing, and reviews while improving development efficiency through automation and streamlined processes",
+        "Deliver reliable and user-focused software solutions that meet client needs and exceed expectations"
+      ],
+      technologies: ["Full-Stack", "API Design", "Database", "Frontend", "Backend"]
+    },
+    {
+      title: "Software Engineer",
+      subtitle: "GumiApps",
+      location: "Addis Ababa, Ethiopia",
+      period: "06/2025 – 01/2026",
+      type: "Full-time",
+      achievements: [
+        "Contributed to the development of a SaaS platform designed for pharmacy business management",
+        "Developed secure user registration and authentication systems to ensure safe platform access",
+        "Built a business management module with role-based permission and access control",
+        "Implemented a Customer Relationship Management (CRM) system including a gift card management feature",
+        "Designed and optimized inventory filtering and search functionality using PostgreSQL full-text search",
+        "Collaborated in backend system deployment and automation workflows"
+      ],
+      technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Docker", "cPanel", "GitHub Actions"]
+    },
+    {
+      title: "Full Stack Developer",
+      subtitle: "Efuye Gela Tech Company",
+      location: "Addis Ababa, Ethiopia",
+      period: "08/2024 – 02/2025",
+      type: "Full-time",
+      achievements: [
+        "Built and maintained web and mobile applications, working across front-end and back-end systems to deliver scalable, high-performance solutions",
+        "Developed responsive user interfaces using modern front-end frameworks and implemented robust backend APIs and database solutions",
+        "Collaborated with designers and backend engineers to create seamless experiences for users and optimize business processes",
+        "Integrated third-party services, implemented authentication systems, and optimized application performance for better user experience"
+      ],
+      technologies: ["React", "Node.js", "Express", "MongoDB", "TypeScript"]
+    },
+    {
+      title: "Web Developer",
       subtitle: "Evangadi Devshop",
       location: "Addis Ababa, Ethiopia",
       period: "04/2025 – 08/2025",
@@ -46,7 +90,7 @@ const Experience = () => {
       technologies: ["Go", "MongoDB", "Gemini API", "AI/ML"]
     },
     {
-      title: "Mentor - Full-Stack Web Development",
+      title: "Instructor - Full-Stack Web Development",
       subtitle: "GDG AAU",
       location: "Addis Ababa, Ethiopia",
       period: "11/2024 – 02/2025",
@@ -59,11 +103,11 @@ const Experience = () => {
       technologies: ["Mentorship", "Web Dev", "Teaching", "Support"]
     },
     {
-      title: "DSA Mentor",
+      title: "DSA Instructor",
       subtitle: "GDG AAU",
       location: "Addis Ababa, Ethiopia",
       period: "10/2025 – Present",
-      type: "Part-time / Volunteer",
+      type: "Part-time",
       achievements: [
         "Mentor students in Data Structures & Algorithms, guiding through coding challenges and problem-solving strategies",
         "Effectively manage mentorship alongside academic and professional commitments",

@@ -29,7 +29,7 @@ const useMediaQuery = (query) => {
 // ---------- Project Data (unchanged) ----------
 import habeshaPlayImg from "../../assets/img/habeshaplay.png";
 import garageImg from "../../assets/img/portfolio/abegarage.png";
-import evangadiForumImg from "../../assets/img/evangadiForum.png";
+import houseRental from "../../assets/img/houseRental.png";
 import freshstart from "../../assets/img/freshstart.png";
 import mwcc from "../../assets/img/mwcc.png";
 import pharmacy0 from "../../assets/img/pharmacy0.jpg";
@@ -95,12 +95,11 @@ const items = [
   },
   {
     id: 5,
-    title: "Evangadi Forum",
-    img: evangadiForumImg,
-    desc: "Developer community hub with real-time discussions, Q&A forums, user profiles, and knowledge sharing platform for developers.",
+    title: "House Rental Platform",
+    img: houseRental,
+    desc: "A comprehensive house rental platform that connects property owners with tenants. Features property listings, advanced search filters by city, subcity, price range, and bedrooms, booking management, and secure payment processing. Built to streamline the rental process in Addis Ababa.",
     links: [
-      { url: "https://evangadi-forum-frontend-deploy-main.vercel.app/", text: "Join Community", icon: Users },
-      { url: "https://github.com/gechjs/evangadi-forum-frontend-deploy-main", text: "GitHub", icon: Github }
+      { url: "https://yba.onrender.com/", text: "Live Platform", icon: Globe }
     ],
     gradient: "from-purple-500 to-pink-600",
     lightGradient: "from-orange-400 to-red-500",
@@ -377,13 +376,13 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
       ref={sectionRef}
       className="portfolio-section"
       style={{
-        height: '80vh',
+        height: '70vh',
         position: 'relative',
         backgroundColor: 'black',
         color: 'white',
         overflow: 'hidden',
         scrollSnapAlign: 'center',
-        scrollMarginTop: '10vh',
+        scrollMarginTop: '5vh',
       }}
       initial="hidden"
       whileInView="visible"
@@ -433,18 +432,41 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
               className="imageWrapper"
               style={{
                 position: 'relative',
-                padding: '1.5rem',
-                background: 'rgba(0,0,0,0.4)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                overflow: 'hidden'
+                padding: '0',
+                background: 'transparent',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.03)',
+                transition: 'border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.2s ease'
+              }}
+              whileHover={{
+                border: '2px solid rgba(236,72,153,0.8)',
+                boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(236,72,153,0.4), 0 0 0 1px rgba(236,72,153,0.2)',
+                zIndex: 1
               }}
             >
               <OptimizedImage
                 src={Array.isArray(item.img) ? item.img[0] : item.img}
                 alt={item.title}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                 style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover' }}
               />
+              {/* Corner accent – matching your Tailwind reference (orange, 30% opacity) */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-12px',
+                right: '-12px',
+                width: '96px',
+                height: '96px',
+                borderRight: '2px solid rgba(245,158,11,0.3)',
+                borderBottom: '2px solid rgba(245,158,11,0.3)',
+                borderBottomRightRadius: '12px',
+                boxShadow: '0 0 20px rgba(245,158,11,0.1)',
+                pointerEvents: 'none',
+                zIndex: 2
+              }} />
             </motion.div>
           </motion.div>
 
