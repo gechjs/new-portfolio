@@ -214,13 +214,13 @@ const ImageCard = ({ imageSrc }) => {
       <motion.div
         className="relative overflow-hidden rounded-[3rem] shadow-2xl shadow-black/80 border-4 border-pink-900/60 bg-black"
         style={{ transform: 'rotate(3deg)' }}
-        whileHover={{ scale: 1.015, transform: 'rotate(0deg)', borderColor: '#ec4899' }}
+        whileHover={{ scale: 1.015, rotate: 0, borderColor: '#ec4899' }}
         transition={{ type: "spring", stiffness: 280, damping: 22 }}
       >
         <img
-          src={imageSrc}
+          src={typeof imageSrc === 'object' ? imageSrc.src : imageSrc}
           alt="Gizachew Mohammed - Full-Stack Developer & AI Engineer"
-          className="w-full aspect-[4/5] object-cover transition-transform duration-[800ms] hover:scale-[1.045]"
+          className="w-full aspect-[4/5] object-cover"
           style={{ objectPosition: 'center 20%' }}
         />
 

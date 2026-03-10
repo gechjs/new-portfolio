@@ -165,7 +165,7 @@ const Certificates = () => {
               <div className="hidden md:block w-1/5 opacity-40 transform scale-90 transition-all">
                 <div className="relative h-64 rounded-lg overflow-hidden border border-gray-800">
                   <img 
-                    src={certificates[prevIndex].img} 
+                    src={typeof certificates[prevIndex].img === 'object' ? certificates[prevIndex].img.src : certificates[prevIndex].img} 
                     alt="" 
                     className="w-full h-full object-cover"
                   />
@@ -183,7 +183,7 @@ const Certificates = () => {
                 >
                   <div className="relative h-96 bg-gray-900">
                     <img
-                      src={certificates[currentIndex].img}
+                      src={typeof certificates[currentIndex].img === 'object' ? certificates[currentIndex].img.src : certificates[currentIndex].img}
                       alt={certificates[currentIndex].title}
                       className="w-full h-full object-contain p-4"
                     />
@@ -220,7 +220,7 @@ const Certificates = () => {
               <div className="hidden md:block w-1/5 opacity-40 transform scale-90 transition-all">
                 <div className="relative h-64 rounded-lg overflow-hidden border border-gray-800">
                   <img 
-                    src={certificates[nextIndex].img} 
+                    src={typeof certificates[nextIndex].img === 'object' ? certificates[nextIndex].img.src : certificates[nextIndex].img} 
                     alt="" 
                     className="w-full h-full object-cover"
                   />
@@ -321,7 +321,7 @@ const Certificates = () => {
                   {/* Left column: image only */}
                   <div>
                     <img 
-                      src={selectedCert.img} 
+                      src={typeof selectedCert.img === 'object' ? selectedCert.img.src : selectedCert.img} 
                       alt={selectedCert.title}
                       className="w-full rounded-lg border border-gray-800"
                     />

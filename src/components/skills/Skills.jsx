@@ -154,7 +154,7 @@ const Skills = () => {
           </div>
           <p className="mt-2 text-lg md:text-xl text-zinc-400 font-light tracking-wide max-w-3xl mx-auto">
             A comprehensive overview of my technical expertise and professional capabilities. 
-            <br className="hidden sm:block" />Each technology represents years of dedicated practice and real-world application.
+            <br className="hidden sm:block" />
           </p>
           <div className="mt-8">
             <a 

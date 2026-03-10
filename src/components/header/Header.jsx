@@ -96,7 +96,7 @@ const Header = () => {
               {/* Main logo image */}
               <div className="relative">
                 <img 
-                  src={gech_logo} 
+                  src={typeof gech_logo === 'object' ? gech_logo.src : gech_logo} 
                   alt="GIZACHEW MOHAMMED" 
                   className="h-20 md:h-24 w-auto object-contain"
                 />

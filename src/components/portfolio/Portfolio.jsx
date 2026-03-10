@@ -338,7 +338,7 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
 };
 
 // ---------- Single Project Component – main image with corners exactly at image edge ----------
-const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
+const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
   const sectionRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
   const isEven = index % 2 === 0;
@@ -529,77 +529,6 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
       </div>
     </motion.section>
   );
-});
-
-// ---------- Navigation Bar Component ----------
-const PortfolioNavigation = ({ activeIndex, total, onNavigate, carouselSpeed }) => {
-  const { scrollY } = useScroll();
-  const [isVisible, setIsVisible] = useState(true);
-  
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const viewportHeight = window.innerHeight;
-    const scrollPercentage = latest / (document.documentElement.scrollHeight - viewportHeight);
-    setIsVisible(scrollPercentage <= 0.65);
-  });
-
-  return (
-    <motion.div
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: isVisible ? 0 : 100, opacity: isVisible ? 1 : 0 }}
-      transition={{ type: "spring", stiffness: carouselSpeed.navigation.stiffness, damping: carouselSpeed.navigation.damping }}
-      style={{
-        position: 'sticky',
-        bottom: '2rem',
-        left: '50%',
-        margin: '0 auto', 
-        width: 'fit-content',
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1.5rem',
-        padding: '0.75rem 2rem',
-        background: 'rgba(255,255,255,0.1)',
-        backdropFilter: 'blur(15px)',
-        borderRadius: '50px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-      }}
-    >
-      <button 
-        onClick={() => onNavigate(Math.max(0, activeIndex - 1))}
-        disabled={activeIndex === 0}
-        style={{ 
-          background: 'none', 
-          border: 'none', 
-          color: 'white', 
-          cursor: activeIndex === 0 ? 'not-allowed' : 'pointer',
-          opacity: activeIndex === 0 ? 0.3 : 1,
-          display: 'flex', alignItems: 'center'
-        }}
-      >
-        <span style={{ fontSize: '1.25rem' }}>←</span>
-      </button>
-
-      <span style={{ fontSize: '0.875rem', fontWeight: 'bold', letterSpacing: '2px', color: 'rgba(255,255,255,0.8)', minWidth: '60px', textAlign: 'center' }}>
-        {String(activeIndex + 1).padStart(2, '0')} <span style={{ opacity: 0.5 }}>/</span> {String(total).padStart(2, '0')}
-      </span>
-
-      <button
-        onClick={() => onNavigate(Math.min(total - 1, activeIndex + 1))}
-        disabled={activeIndex === total - 1}
-        style={{ 
-          background: 'none', 
-          border: 'none', 
-          color: 'white', 
-          cursor: activeIndex === total - 1 ? 'not-allowed' : 'pointer',
-          opacity: activeIndex === total - 1 ? 0.3 : 1,
-          display: 'flex', alignItems: 'center'
-        }}
-      >
-        <span style={{ fontSize: '1.25rem' }}>→</span>
-      </button>
-    </motion.div>
-  );
 };
 
 // ---------- Main Portfolio Component ----------
@@ -696,13 +625,6 @@ const Portfolio = () => {
           carouselSpeed={carouselSpeed}
         />
       ))}
-
-      <PortfolioNavigation 
-        activeIndex={activeIndex} 
-        total={items.length} 
-        onNavigate={scrollToProject} 
-        carouselSpeed={carouselSpeed}
-      />
     </div>
   );
 };
