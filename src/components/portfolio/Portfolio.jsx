@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import React from "react";
-import "./portfolio.scss"; // keep if you have additional styles
+import "./portfolio.scss";
 import { 
   motion, 
   useScroll, 
@@ -26,7 +26,7 @@ const useMediaQuery = (query) => {
   return matches;
 };
 
-// ---------- Project Data (unchanged) ----------
+// ---------- Project Data ----------
 import habeshaPlayImg from "../../assets/img/habeshaplay.png";
 import garageImg from "../../assets/img/portfolio/abegarage.png";
 import houseRental from "../../assets/img/houseRental.png";
@@ -126,23 +126,12 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // Handle Vite asset URLs properly
   const getImageSrc = (src) => {
-    if (typeof src === 'string') {
-      return src;
-    }
+    if (typeof src === 'string') return src;
     if (src && typeof src === 'object') {
-      // Handle Vite's asset URL objects
-      if (src.src) {
-        return src.src;
-      }
-      if (src.default) {
-        return src.default;
-      }
-      // Handle array of images (like pharmacy project)
-      if (Array.isArray(src)) {
-        return src[0];
-      }
+      if (src.src) return src.src;
+      if (src.default) return src.default;
+      if (Array.isArray(src)) return src[0];
       return src;
     }
     return src;
@@ -150,7 +139,6 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
 
   const imageSrc = getImageSrc(src);
 
-  // Add fallback for development debugging
   useEffect(() => {
     if (process.env.NODE_ENV === 'development' && imageSrc) {
       console.log('Image src:', imageSrc, 'Type:', typeof imageSrc);
@@ -209,11 +197,36 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
           Failed to load
         </div>
       )}
+       {/* Top‑left pink corner – outside but visible */}
+        <div style={{
+          position: 'absolute',
+          top: '-2px',
+          left: '-2px',
+          width: '30px',
+          height: '30px',
+          borderTop: '3px solid #ec4899',
+          borderLeft: '3px solid #ec4899',
+          zIndex: 3,
+          pointerEvents: 'none',
+        }} />
+
+        {/* Bottom‑right pink corner – outside but visible */}
+        <div style={{
+          position: 'absolute',
+          bottom: '-2px',
+          right: '-2px',
+          width: '30px',
+          height: '30px',
+          borderBottom: '3px solid #ec4899',
+          borderRight: '3px solid #ec4899',
+          zIndex: 3,
+          pointerEvents: 'none',
+        }} />
     </div>
   );
 };
 
-// ---------- Project Preview Component ----------
+// ---------- Project Preview Component (with corner accents) ----------
 const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
   return (
     <motion.div
@@ -254,7 +267,7 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
         zIndex: -1
       }} />
 
-      {/* Image */}
+      {/* Image wrapper – relative to anchor absolute corners */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
@@ -267,7 +280,8 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
           bottom: 0,
           maskImage: 'linear-gradient(90deg, black 60%, transparent)',
           WebkitMaskImage: 'linear-gradient(90deg, black 60%, transparent)',
-          opacity: 0.8
+          opacity: 0.8,
+          position: 'relative'   // crucial for absolute children
         }}
       >
         <OptimizedImage
@@ -275,6 +289,8 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
           alt={item.title}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
+
+       
       </motion.div>
 
       {/* Spacer to push text right */}
@@ -321,13 +337,12 @@ const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
   );
 };
 
-// ---------- Single Project Component – with inline flex direction ----------
+// ---------- Single Project Component – main image with corners exactly at image edge ----------
 const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
   const sectionRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
   const isEven = index % 2 === 0;
 
-  // Scroll progress for parallax (smoothed)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start center", "end center"]
@@ -338,19 +353,14 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
     restDelta: 0.001
   });
 
-  // Parallax transforms
   const imageParallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const textParallaxY = useTransform(smoothProgress, [0, 1], [40, -40]);
 
-  // Entry animation variants - simplified for professional look
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
@@ -359,10 +369,7 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.8, ease: "easeOut" }
     }
   };
 
@@ -389,13 +396,11 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
       viewport={{ amount: 0.3, once: true }}
       onViewportEnter={() => onActive(index)}
     >
-      {/* Clean background - Apple inspired */}
       <div className="absolute inset-0" style={{
         background: 'linear-gradient(135deg, #000000 0%, #0a0a0a 100%)',
         zIndex: 0
       }} />
 
-      {/* Next project preview */}
       {nextItem && (
         <ProjectPreview
           item={nextItem}
@@ -405,12 +410,7 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
         />
       )}
 
-      {/* Main content */}
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-        {/* 
-          Use inline style to set flex direction based on index parity.
-          This guarantees the layout alternates regardless of external CSS.
-        */}
         <motion.div
           className="wrapper"
           style={{
@@ -422,11 +422,11 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
           }}
           variants={containerVariants}
         >
-          {/* Image container */}
+          {/* Image container – relative to position corners exactly at image edge */}
           <motion.div
             className="imageContainer"
             variants={childVariants}
-            style={{ flex: 1 }}
+            style={{ flex: 1, position: 'relative' }}
           >
             <motion.div
               className="imageWrapper"
@@ -453,21 +453,10 @@ const Single = React.memo(({ item, index, prevItem, nextItem, onActive, carousel
                 transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                 style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover' }}
               />
-              {/* Corner accent – matching your Tailwind reference (orange, 30% opacity) */}
-              <div style={{
-                position: 'absolute',
-                bottom: '-12px',
-                right: '-12px',
-                width: '96px',
-                height: '96px',
-                borderRight: '2px solid rgba(245,158,11,0.3)',
-                borderBottom: '2px solid rgba(245,158,11,0.3)',
-                borderBottomRightRadius: '12px',
-                boxShadow: '0 0 20px rgba(245,158,11,0.1)',
-                pointerEvents: 'none',
-                zIndex: 2
-              }} />
             </motion.div>
+
+           
+
           </motion.div>
 
           {/* Text container */}
@@ -550,20 +539,13 @@ const PortfolioNavigation = ({ activeIndex, total, onNavigate, carouselSpeed }) 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const viewportHeight = window.innerHeight;
     const scrollPercentage = latest / (document.documentElement.scrollHeight - viewportHeight);
-    if (scrollPercentage > 0.65) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
+    setIsVisible(scrollPercentage <= 0.65);
   });
 
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
-      animate={{ 
-        y: isVisible ? 0 : 100, 
-        opacity: isVisible ? 1 : 0 
-      }}
+      animate={{ y: isVisible ? 0 : 100, opacity: isVisible ? 1 : 0 }}
       transition={{ type: "spring", stiffness: carouselSpeed.navigation.stiffness, damping: carouselSpeed.navigation.damping }}
       style={{
         position: 'sticky',
@@ -667,7 +649,6 @@ const Portfolio = () => {
         scrollBehavior: 'smooth'
       }}
     >
-      {/* Global gradient overlay */}
       <motion.div
         className="fixed inset-0 pointer-events-none"
         style={{
@@ -677,7 +658,6 @@ const Portfolio = () => {
         }}
       />
 
-      {/* Sticky progress bar */}
       <div className="progress" style={{ 
         zIndex: 60, 
         background: 'linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.8))',
@@ -705,7 +685,6 @@ const Portfolio = () => {
         }} className="progressBar"></motion.div>
       </div>
 
-      {/* Project list */}
       {items.map((item, index) => (
         <Single
           key={item.id}
@@ -718,7 +697,6 @@ const Portfolio = () => {
         />
       ))}
 
-      {/* Bottom Navigation */}
       <PortfolioNavigation 
         activeIndex={activeIndex} 
         total={items.length} 
