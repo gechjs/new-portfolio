@@ -10,18 +10,10 @@ import Services from "./components/services/Services";
 import Experience from "./components/experience/Experience";
 import Certificates from "./components/certificates/Certificates";
 import Skills from "./components/skills/Skills";
-import { ParticleTextEffect } from "./components/particle-text-effect";
-import { useState } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
 const App = () => {
-  const [showHero, setShowHero] = useState(false);
-
-  const handleParticleComplete = () => {
-    console.log("Particle text effect completed - hiding particle effect and showing Hero");
-    setShowHero(true);
-  };
 
   return (
     <div className="bg-black text-white">
@@ -29,11 +21,7 @@ const App = () => {
       <Cursor />
       <section id="home" className="min-h-screen">
         {/* <Navbar /> */}
-        {!showHero ? (
-          <ParticleTextEffect onComplete={handleParticleComplete} />
-        ) : (
-          <Hero />
-        )}
+        <Hero />
       </section>
       <section id="services">
         <Parallax type="services" />

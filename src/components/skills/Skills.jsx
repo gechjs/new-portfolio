@@ -1,5 +1,5 @@
 // Skills.jsx - Uniform tile size, no hidden content, no soft skills, no header icons
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   DiJavascript1,
   DiJsBadge,
@@ -54,6 +54,16 @@ import {
 } from 'react-icons/fa';
 
 const Skills = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time for professional effect
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
   // Skill definitions (soft skills removed)
   const frontendSkills = [
     { name: 'JavaScript (ES6+)', icon: <DiJavascript1 className="text-yellow-400" /> },
