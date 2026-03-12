@@ -16,7 +16,7 @@ const Experience = () => {
   const titleY = useTransform(smoothProgress, [0, 1], [0, -40]);
   const lineOpacity = useTransform(smoothProgress, [0, 0.5], [1, 0.3]);
 
-  // Work items – clean without icons
+  // Original work items with Apple-style design
   const workItems = [
     {
       title: "Freelance Software Developer",
@@ -30,7 +30,8 @@ const Experience = () => {
         "Ensure code quality through best practices, testing, and reviews while improving development efficiency through automation and streamlined processes",
         "Deliver reliable and user-focused software solutions that meet client needs and exceed expectations"
       ],
-      technologies: ["Full-Stack", "API Design", "Database", "Frontend", "Backend"]
+      technologies: ["Full-Stack", "API Design", "Database", "Frontend", "Backend"],
+      gradient: "from-purple-500 to-pink-600"
     },
     {
       title: "Software Engineer",
@@ -39,14 +40,15 @@ const Experience = () => {
       period: "06/2025 – 01/2026",
       type: "Full-time",
       achievements: [
-        "Contributed to the development of a SaaS platform designed for pharmacy business management",
+        "Contributed to development of a SaaS platform designed for pharmacy business management",
         "Developed secure user registration and authentication systems to ensure safe platform access",
         "Built a business management module with role-based permission and access control",
         "Implemented a Customer Relationship Management (CRM) system including a gift card management feature",
         "Designed and optimized inventory filtering and search functionality using PostgreSQL full-text search",
         "Collaborated in backend system deployment and automation workflows"
       ],
-      technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Docker", "cPanel", "GitHub Actions"]
+      technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Docker", "cPanel", "GitHub Actions"],
+      gradient: "from-blue-500 to-cyan-600"
     },
     {
       title: "Full Stack Developer",
@@ -60,7 +62,8 @@ const Experience = () => {
         "Collaborated with designers and backend engineers to create seamless experiences for users and optimize business processes",
         "Integrated third-party services, implemented authentication systems, and optimized application performance for better user experience"
       ],
-      technologies: ["React", "Node.js", "Express", "MongoDB", "TypeScript"]
+      technologies: ["React", "Node.js", "Express", "MongoDB", "TypeScript"],
+      gradient: "from-emerald-500 to-teal-600"
     },
     {
       title: "Web Developer",
@@ -74,7 +77,8 @@ const Experience = () => {
         "Implemented responsive UI components, improved user experience, and collaborated with backend developers for seamless integration",
         "Worked within Agile team, participated in sprint discussions, performed peer reviews, and delivered production-ready frontend features"
       ],
-      technologies: ["React", "Frontend", "Agile", "UI/UX"]
+      technologies: ["React", "Frontend", "Agile", "UI/UX"],
+      gradient: "from-orange-500 to-red-600"
     },
     {
       title: "AI / Backend Engineer",
@@ -87,7 +91,8 @@ const Experience = () => {
         "Designed and implemented backend for AI chatbot in Go, enabling real-time personalized resume improvement suggestions",
         "Built scalable architecture supporting real-time AI interactions and user data management"
       ],
-      technologies: ["Go", "MongoDB", "Gemini API", "AI/ML"]
+      technologies: ["Go", "MongoDB", "Gemini API", "AI/ML"],
+      gradient: "from-violet-500 to-purple-600"
     },
     {
       title: "Instructor - Full-Stack Web Development",
@@ -100,7 +105,8 @@ const Experience = () => {
         "Provided hands-on guidance and debugging support to 30+ students, building confidence and understanding core concepts",
         "Created supportive learning environment, answered questions in real-time, and helped students overcome technical challenges"
       ],
-      technologies: ["Mentorship", "Web Dev", "Teaching", "Support"]
+      technologies: ["Mentorship", "Web Dev", "Teaching", "Support"],
+      gradient: "from-rose-500 to-pink-600"
     },
     {
       title: "DSA Instructor",
@@ -113,214 +119,190 @@ const Experience = () => {
         "Effectively manage mentorship alongside academic and professional commitments",
         "Help students develop algorithmic thinking and competitive programming skills"
       ],
-      technologies: ["DSA", "Algorithms", "Mentorship", "Problem Solving"]
+      technologies: ["DSA", "Algorithms", "Mentorship", "Problem Solving"],
+      gradient: "from-amber-500 to-orange-600"
     }
   ];
-
-  // Only work experience section
-  const sections = [
-    { 
-      title: "Work Experience", 
-      items: workItems
-    }
-  ];
-
-  // Build unified timeline
-  let globalIdx = 0;
-  const timelineEntries = [];
-  sections.forEach((section, sIdx) => {
-    timelineEntries.push({ type: 'header', section, sIdx });
-    section.items.forEach(item => {
-      timelineEntries.push({ type: 'item', data: item, globalIdx: globalIdx++ });
-    });
-  });
-
-  // Animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.08,
-        duration: 0.6,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    })
-  };
-
-  const numberVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: (i) => ({
-      scale: 1,
-      opacity: 1,
-      transition: {
-        delay: i * 0.08 + 0.2,
-        type: "spring",
-        stiffness: 200,
-        damping: 20
-      }
-    })
-  };
 
   return (
-    <div ref={experienceRef} className="min-h-screen bg-black text-white relative overflow-hidden py-20" id="experience">
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black" />
+    <section ref={experienceRef} className="min-h-screen bg-black text-white relative overflow-hidden py-24" id="experience">
+      {/* Elegant background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-black to-zinc-950" />
       <motion.div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-30"
         style={{
-          backgroundImage: `radial-gradient(circle at 30% 40%, rgba(168, 85, 247, 0.15) 0%, transparent 50%)`,
+          backgroundImage: `radial-gradient(circle at 25% 35%, rgba(168, 85, 247, 0.12) 0%, transparent 50%), radial-gradient(circle at 75% 65%, rgba(236, 72, 153, 0.08) 0%, transparent 50%)`,
           y: bgY
         }}
       />
 
-      <div className="relative z-10 container mx-auto px-4 md:px-8">
-        {/* Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+        {/* Elegant header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center mb-16"
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center mb-20"
           style={{ y: titleY }}
         >
-          <div className="inline-flex items-center gap-3 px-5 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full mb-6">
-            <span className="text-xs font-medium tracking-widest text-white/70">JOURNEY</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
-            Work Experience
-          </h1>
-          <p className="text-lg text-zinc-400 max-w-xl mx-auto font-light">
-            A curated timeline of professional growth and learning.
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-[-0.03em] mb-6 bg-gradient-to-br from-white via-zinc-100 to-pink-200 bg-clip-text text-transparent">
+            My Experience
+          </h2>
+          <p className="uppercase font-semibold tracking-widest bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent bg-clip-text text-center mt-4 mb-8 max-w-2xl mx-auto">
+            My journey through professional development, building innovative solutions and gaining expertise across multiple technologies and industries.
           </p>
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* Central line */}
+        <div className="relative max-w-6xl mx-auto">
+          {/* Elegant central line */}
           <motion.div
             initial={{ height: 0 }}
             whileInView={{ height: "100%" }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="absolute left-1/2 transform -translate-x-1/2 w-px bg-gradient-to-b from-purple-500/30 via-pink-500/30 to-orange-500/30"
-            style={{ top: 0, bottom: 0, opacity: lineOpacity }}
+            transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
+            className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"
+            style={{ top: 0, bottom: 0 }}
           />
 
-          <div className="relative space-y-6">
-            {timelineEntries.map((entry, idx) => {
-              if (entry.type === 'header') {
-                const { section, sIdx } = entry;
-                return (
+          {/* Moving dots and line animation */}
+          <motion.div
+            className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2"
+            style={{ top: 0, bottom: 0 }}
+          >
+            {/* Moving line that follows scroll progress */}
+            <motion.div
+              className="absolute w-0.5 bg-gradient-to-b from-transparent via-white to-transparent"
+              style={{
+                top: useTransform(smoothProgress, [0, 1], ["0%", "100%"]),
+                left: '50%',
+                transform: 'translateX(-50%)',
+                height: '15%',
+                opacity: 0.9
+              }}
+            />
+
+            {/* Moving dots that travel along the line - white only */}
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-white rounded-full"
+                style={{
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
+                }}
+                animate={{
+                  top: useTransform(smoothProgress, [0, 1], [`${i * 20}%`, `${(i + 1) * 20}%`])
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </motion.div>
+
+          <div className="space-y-12 md:space-y-20">
+            {workItems.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                className={`relative flex items-start ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12`}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-8 z-20">
                   <motion.div
-                    key={`header-${sIdx}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="relative flex justify-center -mb-2"
+                    transition={{ duration: 0.5, delay: index * 0.15 + 0.3, type: "spring", stiffness: 200 }}
+                    className="relative"
                   >
-                    <div className="flex items-center gap-4 px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl">
-                      <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
-                    </div>
-                    {/* Dot on line */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-4 w-2 h-2 rounded-full bg-white border border-purple-400/50" />
+                    <div className="w-5 h-5 rounded-full bg-white shadow-lg shadow-white/25 border-2 border-black" />
+                    <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${item.gradient} opacity-50 animate-pulse`} />
                   </motion.div>
-                );
-              } else {
-                const item = entry.data;
-                const i = entry.globalIdx;
-                const isEven = i % 2 === 0;
+                </div>
 
-                return (
+                {/* Content card */}
+                <div className="w-full md:w-5/12 ml-20 md:ml-0">
                   <motion.div
-                    key={`item-${i}`}
-                    custom={i}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.3 }}
-                    className={`relative flex -mt-6 ${isEven ? 'flex-row' : 'flex-row-reverse'}`}
+                    whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+                    className="group relative bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-3xl p-8 md:p-10 hover:bg-zinc-900/60 hover:border-white/10 transition-all duration-500 overflow-hidden"
                   >
-                    {/* Number circle with gentle floating animation */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-                      <motion.div
-                        custom={i}
-                        variants={numberVariants}
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
-                        className={`relative w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border border-white/20`}
-                      >
-                        <span className="text-black font-semibold text-sm">
-                          {(i + 1).toString().padStart(2, '0')}
+                    {/* Subtle gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white to-white opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
+                    
+                    {/* Period and location */}
+                    <div className="flex flex-wrap items-center gap-2 mb-4">
+                      <span className={`inline-flex px-3 py-1 text-xs font-medium tracking-wider text-white bg-transparent border border-zinc-700/50 rounded-full`}>
+                        {item.period}
+                      </span>
+                      <span className="inline-flex px-3 py-1 text-xs font-medium text-zinc-300 bg-zinc-800/50 border border-zinc-700/50 rounded-full">
+                        {item.location}
+                      </span>
+                      <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${
+                        item.type === 'Freelance' ? 'bg-purple-500/10 text-purple-300' :
+                        item.type === 'Full-time' ? 'bg-blue-500/10 text-blue-300' :
+                        item.type === 'Internship' ? 'bg-emerald-500/10 text-emerald-300' :
+                        item.type === 'Part-time' ? 'bg-orange-500/10 text-orange-300' :
+                        'bg-rose-500/10 text-rose-300'
+                      }`}>
+                        {item.type}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-3xl mb-2 font-semibold text-white group-hover:text-white transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    
+                    {/* Subtitle */}
+                    <p className="text-base md:text-lg font-medium text-zinc-300 mb-6 group-hover:text-zinc-200 transition-colors duration-300">
+                      {item.subtitle}
+                    </p>
+
+                    {/* Achievements */}
+                    <div className="space-y-2 mb-6">
+                      {item.achievements.map((achievement, j) => (
+                        <div key={j} className="flex items-start gap-2 text-sm text-zinc-300 group-hover:text-zinc-200 transition-colors duration-300">
+                          <span className="text-white flex-shrink-0 mt-0.5">•</span>
+                          <span className="leading-relaxed">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {item.technologies.map((tech, j) => (
+                        <span key={j} className="px-2 py-1 text-xs bg-zinc-800/50 border border-zinc-700/50 rounded-full text-zinc-300 group-hover:text-zinc-200 group-hover:border-zinc-600/50 transition-all duration-300">
+                          {tech}
                         </span>
-                      </motion.div>
+                      ))}
                     </div>
 
-                    {/* Card */}
-                    <div className={`w-5/12 ${isEven ? 'pr-10' : 'pl-10'}`}>
-                      <motion.div
-                        custom={i}
-                        variants={cardVariants}
-                        whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.3 } }}
-                        className="group bg-white/5 backdrop-blur-md rounded-xl border border-white/10 p-5 hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300 shadow-xl"
-                      >
-                        {/* Header */}
-                        <div className="mb-3">
-                          <h3 className="text-lg font-semibold text-white mb-1">{item.title}</h3>
-                          <p className="text-xs font-medium text-white/70">
-                            {item.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-3">
-                          <span className="bg-black/30 px-2 py-1 rounded-full">
-                            {item.period}
-                          </span>
-                          <span className="bg-black/30 px-2 py-1 rounded-full">
-                            {item.location}
-                          </span>
-                          <span className={`px-2 py-1 rounded-full text-xs ${
-                            item.type.includes('Progress') ? 'bg-purple-500/10 text-purple-300' :
-                            item.type === 'Completed' ? 'bg-pink-500/10 text-pink-300' :
-                            'bg-orange-500/10 text-orange-300'
-                          }`}>
-                            {item.type}
-                          </span>
-                        </div>
-
-                        {/* Achievements (full descriptions) */}
-                        <div className="space-y-1 mb-3">
-                          {item.achievements.map((ach, j) => (
-                            <div key={j} className="flex items-start gap-2 text-xs text-zinc-300">
-                              <span className="text-white/70 flex-shrink-0 mt-0.5">•</span>
-                              <span>{ach}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Technologies */}
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.technologies.map((tech, j) => (
-                            <span key={j} className="px-2 py-0.5 text-xs bg-black/40 border border-white/10 rounded-full text-zinc-300">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Hover line */}
-                        <div className="absolute bottom-0 left-0 h-0.5 bg-white w-0 group-hover:w-full transition-all duration-500 rounded-b-xl" />
-                      </motion.div>
+                    {/* Type indicator */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-white" />
+                      <span className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
+                        {item.type}
+                      </span>
                     </div>
+
+                    {/* Elegant bottom border */}
+                    <div className="absolute bottom-0 left-0 h-0.5 bg-white w-0 group-hover:w-full transition-all duration-700 rounded-b-3xl" />
                   </motion.div>
-                );
-              }
-            })}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -410,7 +410,7 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
         />
       )}
 
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container" style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
         <motion.div
           className="wrapper"
           style={{
@@ -575,7 +575,9 @@ const Portfolio = () => {
         color: 'white', 
         position: 'relative',
         scrollSnapType: 'y mandatory',
-        scrollBehavior: 'smooth'
+        scrollBehavior: 'smooth',
+        maxWidth: '100%',
+        margin: '0 auto'
       }}
     >
       <motion.div
@@ -591,7 +593,9 @@ const Portfolio = () => {
         zIndex: 60, 
         background: 'linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.8))',
         backdropFilter: 'blur(20px)',
-        borderBottom: '3px solid rgba(255,255,255,0.1)'
+        borderBottom: '3px solid rgba(255,255,255,0.1)',
+        textAlign: 'center',
+        padding: '2rem 1rem'
       }}>
         <h1 style={{ 
           fontSize: 'clamp(3rem, 4vw, 3.5rem)', 
