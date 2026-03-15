@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ArrowRight, Download, Code, Server, Sparkles } from 'lucide-react'
-import gechPhoto from '../../assets/img/gechphoto (3).png'
+import gechPhoto from '../../assets/img/tinified/gechphoto (3).png'
 import ProjectShowcase from './ProjectShowcase'
 
 const Hero = () => {

@@ -27,12 +27,12 @@ const useMediaQuery = (query) => {
 };
 
 // ---------- Project Data ----------
-import habeshaPlayImg from "../../assets/img/habeshaplay.png";
-import garageImg from "../../assets/img/portfolio/abegarage.png";
-import houseRental from "../../assets/img/houseRental.png";
-import freshstart from "../../assets/img/freshstart.png";
-import mwcc from "../../assets/img/mwcc.png";
-import pharmacy0 from "../../assets/img/pharmacy0.jpg";
+import habeshaPlayImg from "../../assets/img/tinified/habeshaplay.webp";
+import garageImg from "../../assets/img/tinified/abegarage.jpg";
+import houseRental from "../../assets/img/tinified/houseRental.jpg";
+import freshstart from "../../assets/img/tinified/freshstart.webp";
+import mwcc from "../../assets/img/tinified/mwcc.jpg";
+import pharmacy0 from "../../assets/img/tinified/pharmacy0.jpg";
 import pharmacy1 from "../../assets/img/pharmacy1.jpg";
 import pharmacy2 from "../../assets/img/pharmacy2.png";
 
@@ -147,6 +147,15 @@ const OptimizedImage = ({ src, alt, className, ...props }) => {
 
   return (
     <div className="image-wrapper" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      {/* Subtle professional border */}
+      <div style={{
+        position: 'absolute',
+        inset: '0px',
+        border: '1.5px solid rgba(255, 255, 255, 0.4)',
+        borderRadius: '4px',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
       {!isLoaded && (
         <motion.div
           initial={{ opacity: 1 }}
