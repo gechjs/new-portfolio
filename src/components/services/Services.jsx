@@ -85,7 +85,7 @@ const Services = () => {
                 borderColor: 'rgba(255,255,255,0.15)',
                 boxShadow: '0 20px 40px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.1)',
               }}
-              className="group relative bg-zinc-900/40 border border-zinc-800/50 rounded-2xl p-8 md:p-10 flex items-center gap-8 backdrop-blur-sm transition-all duration-700 hover:backdrop-blur-md overflow-hidden"
+              className="group relative bg-zinc-900/40 border border-zinc-800/50 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col sm:flex-row items-center gap-6 sm:gap-8 backdrop-blur-sm transition-all duration-700 hover:backdrop-blur-md overflow-hidden"
             >
               {/* Subtle gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-8 transition-all duration-700`} />
@@ -95,7 +95,7 @@ const Services = () => {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="text-5xl md:text-6xl font-light text-zinc-700 group-hover:text-zinc-600 transition-all duration-500"
+                  className="text-4xl sm:text-5xl md:text-6xl font-light text-zinc-700 group-hover:text-zinc-600 transition-all duration-500"
                 >
                   {service.number}
                 </motion.div>
@@ -103,10 +103,10 @@ const Services = () => {
 
               {/* Content */}
               <div className="flex-1 relative z-10">
-                <h3 className="text-2xl md:text-3xl font-medium text-white tracking-[-0.02em] mb-3 group-hover:text-white transition-all duration-500">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white tracking-[-0.02em] mb-3 group-hover:text-white transition-all duration-500">
                   {service.title}
                 </h3>
-                <p className="text-base md:text-lg text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-all duration-500">
+                <p className="text-sm sm:text-base md:text-lg text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-all duration-500">
                   {service.description}
                 </p>
               </div>

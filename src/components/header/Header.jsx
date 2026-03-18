@@ -5,6 +5,7 @@ import gech_logo from '../../assets/img/gech_logo.png';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   
   // Transform header background opacity based on scroll
@@ -212,6 +213,7 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <div className="w-5 h-4 flex flex-col justify-between">
                 <span className="w-full h-0.5 bg-gradient-to-r from-[#FF6B35] to-[#9D4EDD] rounded-full" />
@@ -223,13 +225,15 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* Mobile Menu (hidden by default - you can expand this) */}
-      <motion.div 
-        className="fixed inset-x-0 top-16 bg-black/95 backdrop-blur-xl border-b border-white/10 md:hidden z-30"
-        initial={{ y: '-100%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
+      {/* Mobile Menu (controlled by state) */}
+      {isMobileMenuOpen && (
+        <motion.div 
+          className="fixed inset-x-0 top-16 bg-black/95 backdrop-blur-xl border-b border-white/10 md:hidden z-30"
+          initial={{ opacity: 0, y: '-100%' }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: '-100%' }}
+          transition={{ duration: 0.3 }}
+        >
         <div className="p-4 space-y-2">
           {navItems.map((item, index) => (
             <motion.a
@@ -239,12 +243,18 @@ const Header = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
+              onClick={() => {
+                setActiveLink(item.href);
+                scrollToSection(item.href);
+                setIsMobileMenuOpen(false);
+              }}
             >
               <span className="font-medium">{item.label}</span>
             </motion.a>
           ))}
         </div>
       </motion.div>
+      )}
 
       {/* Scroll to top button (appears after scrolling) */}
       {isScrolled && (

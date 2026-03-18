@@ -43,8 +43,7 @@ const items = [
     img: freshstart,
     desc: "U.S.-based recovery organization offering structured sober living and transitional support services for long-term sobriety and independent living.",
     links: [
-      { url: "https://freshstarthouse.com/", text: "Live Site", icon: Globe },
-      { url: "#", text: "Case Study", icon: FileText }
+      { url: "https://freshstarthouse.com/", text: "Live Site", icon: Globe }
     ],
     gradient: "from-purple-500 to-pink-600",
     lightGradient: "from-orange-400 to-red-500",
@@ -85,8 +84,7 @@ const items = [
     img: mwcc,
     desc: "A responsive web platform for Meheret Women & Children's Charitable Organization that streamlines volunteer coordination, event management, and secure donations, supporting impactful initiatives for women and children in Addis Ababa.",
     links: [
-      { url: "https://mwcoo-frontend-62s8.vercel.app/", text: "Live Platform", icon: Globe },
-      { url: "#", text: "Case Study", icon: FileText }
+      { url: "https://mwcoo-frontend-62s8.vercel.app/", text: "Live Platform", icon: Globe }
     ],
     gradient: "from-purple-500 to-pink-600",
     lightGradient: "from-orange-400 to-red-500",
@@ -390,15 +388,15 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
     <motion.section
       id={`project-${item.id}`}
       ref={sectionRef}
-      className="portfolio-section"
+      className="portfolio-section mb-8 lg:mb-6"
       style={{
-        height: '70vh',
+        height: '80vh',
         position: 'relative',
         backgroundColor: 'black',
         color: 'white',
         overflow: 'hidden',
         scrollSnapAlign: 'center',
-        scrollMarginTop: '5vh',
+        scrollMarginTop: '5vh'
       }}
       initial="hidden"
       whileInView="visible"
@@ -419,121 +417,122 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
         />
       )}
 
-      <div className="container" style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '0 1rem sm:0 2rem' }}>
         <motion.div
           className="wrapper"
           style={{
             display: 'flex',
-            flexDirection: isEven ? 'row' : 'row-reverse',
+            flexDirection: 'column',
             alignItems: 'center',
-            gap: '4rem',
-            height: '100%'
+            gap: '3rem',
+            height: '100%',
+            minHeight: '70vh'
           }}
           variants={containerVariants}
         >
-          {/* Image container – relative to position corners exactly at image edge */}
-          <motion.div
-            className="imageContainer"
-            variants={childVariants}
-            style={{ flex: 1, position: 'relative' }}
-          >
+          {/* Image and Text Container */}
+          <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-12 lg:gap-16 w-full">
+            {/* Image */}
             <motion.div
-              className="imageWrapper"
+              className="w-full max-w-md mx-auto lg:w-auto lg:flex-1"
               style={{
-                position: 'relative',
-                padding: '0',
-                background: 'transparent',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.03)',
-                transition: 'border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.2s ease'
+                position: 'relative'
               }}
-              whileHover={{
-                border: '2px solid rgba(236,72,153,0.8)',
-                boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(236,72,153,0.4), 0 0 0 1px rgba(236,72,153,0.2)',
-                zIndex: 1
-              }}
+              variants={childVariants}
             >
-              <OptimizedImage
-                src={Array.isArray(item.img) ? item.img[0] : item.img}
-                alt={item.title}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                style={{ width: '100%', height: 'auto', maxHeight: '500px', objectFit: 'cover' }}
-              />
+              <motion.div
+                style={{
+                  position: 'relative',
+                  padding: '0',
+                  background: 'transparent',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.03)',
+                  transition: 'border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.2s ease'
+                }}
+                whileHover={{
+                  border: '2px solid rgba(236,72,153,0.8)',
+                  boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(236,72,153,0.4), 0 0 0 1px rgba(236,72,153,0.2)',
+                  zIndex: 1
+                }}
+              >
+                <OptimizedImage
+                  src={Array.isArray(item.img) ? item.img[0] : item.img}
+                  alt={item.title}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  style={{ width: '100%', height: 'auto', maxHeight: '400px', objectFit: 'cover' }}
+                />
+              </motion.div>
             </motion.div>
 
-           
+            {/* Text */}
+            <motion.div
+              className="w-full max-w-2xl mx-auto lg:w-auto lg:flex-1 lg:text-left text-center"
+              variants={childVariants}
+            >
+              <motion.div style={{ y: !isMobile ? textParallaxY : 0 }}>
+                <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
+                  <span style={{
+                    background: `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: '#ffffff',
+                    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))'
+                  }}>
+                    {item.title}
+                  </span>
+                </h2>
 
-          </motion.div>
+                <p style={{ fontSize: '1rem', color: '#e5e7eb', lineHeight: 1.7, maxWidth: '600px', marginBottom: '2.5rem', fontWeight: '400', padding: '0 1rem' }}>
+                  {item.desc}
+                </p>
 
-          {/* Text container */}
-          <motion.div
-            className="textContainer"
-            variants={childVariants}
-            style={{ flex: 1 }}
-          >
-            <motion.div style={{ y: !isMobile ? textParallaxY : 0 }}>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
-                <span style={{
-                  background: `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`,
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  color: '#ffffff',
-                  filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))'
-                }}>
-                  {item.title}
-                </span>
-              </h2>
-
-              <p style={{ fontSize: '1.25rem', color: '#e5e7eb', lineHeight: 1.7, maxWidth: '600px', marginBottom: '2.5rem', fontWeight: '400' }}>
-                {item.desc}
-              </p>
-
-              {/* Action Buttons */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                {item.links.map((link, i) => {
-                  const isPrimary = i === 0;
-                  return (
-                    <a
-                      key={i}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        position: 'relative',
-                        padding: '0.875rem 2rem',
-                        borderRadius: '12px',
-                        fontWeight: '600',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.75rem',
-                        background: isPrimary
-                          ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`
-                          : 'rgba(255,255,255,0.08)',
-                        border: isPrimary
-                          ? '1px solid rgba(255,255,255,0.15)'
-                          : '1px solid rgba(255,255,255,0.1)',
-                        color: 'white',
-                        textDecoration: 'none',
-                        transition: 'all 0.2s ease',
-                        boxShadow: isPrimary
-                          ? '0 4px 12px rgba(0,0,0,0.15)'
-                          : '0 2px 8px rgba(0,0,0,0.1)'
-                      }}
-                    >
-                      <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        {link.icon && <link.icon size={16} style={{ color: isPrimary ? 'white' : 'rgba(255,255,255,0.8)' }} />}
-                        <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{link.text}</span>
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
+                {/* Action Buttons */}
+                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                  {item.links.filter((link, i) => i === 0 || i === 1).map((link, i) => {
+                    const isPrimary = i === 0;
+                    return (
+                      <a
+                        key={i}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          position: 'relative',
+                          padding: '0.75rem 1.5rem',
+                          borderRadius: '12px',
+                          fontWeight: '600',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          background: isPrimary
+                            ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`
+                            : 'rgba(255,255,255,0.08)',
+                          border: isPrimary
+                            ? '1px solid rgba(255,255,255,0.15)'
+                            : '1px solid rgba(255,255,255,0.1)',
+                          color: 'white',
+                          textDecoration: 'none',
+                          transition: 'all 0.2s ease',
+                          boxShadow: isPrimary
+                            ? '0 4px 12px rgba(0,0,0,0.15)'
+                            : '0 2px 8px rgba(0,0,0,0.1)'
+                        }}
+                      >
+                        <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          {link.icon && <link.icon size={14} style={{ color: isPrimary ? 'white' : 'rgba(255,255,255,0.8)' }} />}
+                          <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>{link.text}</span>
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </motion.section>

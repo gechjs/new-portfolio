@@ -1,27 +1,63 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./parallax.scss";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
+// Custom hook for media query detection
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+
+    const listener = (e) => setMatches(e.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
 const Parallax = ({ type }) => {
   const ref = useRef();
+  const isMobile = useMediaQuery("(max-width: 480px)"); // Mobile breakpoint
 
-  // Extend the scroll range: when the top of the section hits the top of viewport (progress 0)
-  // until the bottom of the section hits the bottom of viewport (progress 1).
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"], // now spans the entire visible range
+    offset: ["start start", "end end"], // Full viewport coverage
   });
 
-  // Smooth the scroll progress for fluid motion
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 400,
     damping: 90,
   });
 
-  // More subtle transform ranges
-  const yText = useTransform(smoothProgress, [0, 1], ["0%", "150%"]);
-  const yBg = useTransform(smoothProgress, [0, 1], ["0%", "40%"]); // planets move less
-  const xStars = useTransform(smoothProgress, [0, 1], [0, -150]); // stars drift horizontally
+  // Responsive transform ranges: gentler on mobile
+  const yText = useTransform(
+    smoothProgress,
+    [0, 1],
+    isMobile ? ["0%", "50%"] : ["0%", "100%"]
+  );
+
+  const yBg = useTransform(
+    smoothProgress,
+    [0, 1],
+    isMobile ? ["0%", "15%"] : ["0%", "30%"]
+  );
+
+  const xStars = useTransform(
+    smoothProgress,
+    [0, 1],
+    isMobile ? [0, -50] : [0, -100]
+  );
+
+  // Determine background image for planets based on type
+  const planetImage =
+    type === "services"
+      ? "/planets.png"
+      : type === "portfolio"
+      ? "/sun.png"
+      : "/stars.png";
 
   return (
     <div
@@ -38,8 +74,17 @@ const Parallax = ({ type }) => {
             : "linear-gradient(180deg, #000000, #000000)",
       }}
     >
-      <motion.h1 style={{ y: yText }} className="text-white">
-        {type === "services" ? "What I Do?" : type === "portfolio" ? "What I Did?" : type === "skills" ? "My Expertise" : "My Journey"}
+      <motion.h1
+        style={{ y: yText }}
+        className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold"
+      >
+        {type === "services"
+          ? "What I Do?"
+          : type === "portfolio"
+          ? "What I Did?"
+          : type === "skills"
+          ? "My Expertise"
+          : "My Journey"}
       </motion.h1>
 
       <motion.div className="mountains" />
@@ -48,16 +93,11 @@ const Parallax = ({ type }) => {
         className="planets"
         style={{
           y: yBg,
-          backgroundImage: `url(${
-            type === "services" ? "/planets.png" : type === "portfolio" ? "/sun.png" : type === "skills" ? "/stars.png" : "/stars.png"
-          })`,
+          backgroundImage: `url(${planetImage})`,
         }}
       />
 
-      <motion.div
-        className="stars"
-        style={{ x: xStars }}
-      />
+      <motion.div className="stars" style={{ x: xStars }} />
     </div>
   );
 };

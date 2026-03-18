@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <>
       {/* Hero Section – Apple-level minimal elegance */}
-      <div className="min-h-screen bg-black relative overflow-hidden">
+      <div className="min-h-screen bg-black relative">
         {/* Ultra-subtle noise texture */}
         <div className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
           style={{
@@ -24,54 +24,50 @@ const Hero = () => {
         </div>
 
         {/* Main Content */}
-        <div className="relative z-20 min-h-screen flex items-center px-6 lg:px-8">
+        <div className="relative z-20 min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="max-w-7xl mx-auto w-full">
-            <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-             
+            <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
               {/* Left Content – refined typography hierarchy */}
               <motion.div
-                className="flex-1 text-center lg:text-left"
+                className="flex-1 text-center lg:text-left order-1"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
-                
-
                 <motion.h1
-                  className="text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.05] tracking-[-2px] mb-8 mt-14"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.05] tracking-[-2px] mb-6 sm:mb-8 mt-8 sm:mt-14"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1.2, delay: 0.2 }}
                 >
                   I'M GIZACHEW
-                  <span className="text-pink-500 block lg:inline font-serif tracking-[4px]"> MOHAMMED</span>
+                  <span className="text-pink-500 font-serif tracking-[2px] sm:tracking-[4px]"> MOHAMMED</span>
                 </motion.h1>
-               
+
                 <motion.div
-                  className="text-2xl md:text-3xl text-gray-300 font-serif mb-10"
+                  className="text-lg sm:text-xl md:text-2xl text-gray-300 font-serif mb-8 sm:mb-10"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.4 }}
                 >
-                  <span className="text-white font-semibold text-lg md:text-xl lg:text-2xl">NEXT-LEVEL Full-Stack DEVELOPER & AI ENGINEER</span>
-                  
+                  <span className="text-white font-semibold text-base sm:text-lg md:text-xl lg:text-2xl">
+                    NEXT-LEVEL Full-Stack DEVELOPER & AI ENGINEER
+                  </span>
                 </motion.div>
 
                 <motion.p
-                  className="text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-12 font-serif"
+                  className="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10 sm:mb-12 font-serif"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.6 }}
                 >
-                  I break down complex user experience problems to create 
+                  I break down complex user experience problems to create
                   <span className="text-pink-400 font-medium"> integrity-focused solutions</span> that connect millions of people through elegant, scalable technology.
                 </motion.p>
 
-              
-
                 {/* CTA Buttons */}
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-14"
+                  className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.8 }}
@@ -107,24 +103,24 @@ const Hero = () => {
                   transition={{ duration: 1, delay: 1.1 }}
                 >
                   {[
-                    { 
-                      icon: Github, 
-                      href: "https://github.com/gechjs", 
-                      label: "GitHub", 
+                    {
+                      icon: Github,
+                      href: "https://github.com/gechjs",
+                      label: "GitHub",
                       bgColor: "hover:bg-[#333]",
                       iconColor: "text-gray-300 group-hover:text-white"
                     },
-                    { 
-                      icon: Linkedin, 
-                      href: "https://www.linkedin.com/in/gizachew-mohammed/", 
-                      label: "LinkedIn", 
+                    {
+                      icon: Linkedin,
+                      href: "https://www.linkedin.com/in/gizachew-mohammed/",
+                      label: "LinkedIn",
                       bgColor: "hover:bg-[#0077B5]",
                       iconColor: "text-gray-300 group-hover:text-white"
                     },
-                    { 
-                      icon: Mail, 
-                      href: "#contact", 
-                      label: "Contact", 
+                    {
+                      icon: Mail,
+                      href: "#contact",
+                      label: "Contact",
                       bgColor: "hover:bg-pink-500",
                       iconColor: "text-gray-300 group-hover:text-white"
                     },
@@ -150,13 +146,11 @@ const Hero = () => {
                     </motion.a>
                   ))}
                 </motion.div>
-
-               
               </motion.div>
 
               {/* Right Content – Premium Hero Image */}
               <motion.div
-                className="flex-1 flex justify-center lg:justify-end"
+                className="flex-1 flex justify-center lg:justify-end mt-8 lg:mt-0 order-2"
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -191,7 +185,7 @@ const Hero = () => {
 // Apple-grade hero portrait with signature glowing orb
 const ImageCard = ({ imageSrc }) => {
   return (
-    <div className="relative w-full max-w-[500px] mx-auto max-h-[350px] flex items-center justify-center">
+    <div className="relative w-full max-w-[400px] sm:max-w-[500px] mx-auto max-h-[250px] xs:max-h-[280px] sm:max-h-[350px] flex items-center justify-center">
       {/* Signature glowing orb */}
       <motion.div
         className="absolute -bottom-16 -left-20 w-[340px] h-[340px] rounded-full blur-[130px] z-0 pointer-events-none"
@@ -199,14 +193,14 @@ const ImageCard = ({ imageSrc }) => {
           background: 'linear-gradient(260deg, #ec4899 12%, rgba(236, 72, 153, 0.15) 68%, transparent 100%)',
           transform: 'rotate(10deg)'
         }}
-        animate={{ 
+        animate={{
           scale: [1, 1.08, 1],
           opacity: [0.75, 0.92, 0.75]
         }}
-        transition={{ 
-          duration: 22, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: "easeInOut"
         }}
       />
 
