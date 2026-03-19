@@ -1,16 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import React from "react";
 import "./portfolio.scss";
-import { 
-  motion, 
-  useScroll, 
-  useSpring, 
-  useTransform, 
-  useMotionValueEvent 
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
 } from "framer-motion";
-import { ExternalLink, Github, Play, Rocket, Globe, FileText, Users } from 'lucide-react';
+import { Github, Play, Rocket, Globe } from 'lucide-react';
 
-// ---------- Custom hook for responsive parallax ----------
+// ---------- Custom hook for responsive design ----------
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
 
@@ -26,7 +24,7 @@ const useMediaQuery = (query) => {
   return matches;
 };
 
-// ---------- Project Data ----------
+// ---------- Project Data (concise descriptions) ----------
 import habeshaPlayImg from "../../assets/img/tinified/habeshaplay.webp";
 import garageImg from "../../assets/img/tinified/abegarage.jpg";
 import houseRental from "../../assets/img/tinified/houseRental.jpg";
@@ -41,314 +39,139 @@ const items = [
     id: 1,
     title: "Fresh Start House",
     img: freshstart,
-    desc: "U.S.-based recovery organization offering structured sober living and transitional support services for long-term sobriety and independent living.",
-    links: [
-      { url: "https://freshstarthouse.com/", text: "Live Site", icon: Globe }
-    ],
+    desc: "Sober living & transitional support for long-term recovery.",
+    links: [{ url: "https://freshstarthouse.com/", text: "Live Site", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-emerald-400",
-    bgPattern: "radial-gradient(circle at 20% 30%, rgba(16,185,129,0.1) 0%, transparent 50%)"
   },
   {
     id: 2,
     title: "Abe Garage Pro",
     img: garageImg,
-    desc: "Revolutionary garage management ecosystem with real-time operational insights and advanced analytics for automotive businesses.",
+    desc: "Garage management with real-time analytics & insights.",
     links: [
       { url: "https://abebe-garage.netlify.app/", text: "Live Demo", icon: Rocket },
       { url: "https://github.com/gechjs/Abe-Garage-Pro", text: "GitHub", icon: Github }
     ],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-blue-400",
-    bgPattern: "radial-gradient(circle at 80% 70%, rgba(59,130,246,0.1) 0%, transparent 50%)"
   },
   {
     id: 3,
     title: "Habesha Play",
     img: habeshaPlayImg,
-    desc: "Netflix-inspired streaming platform with advanced content discovery, genre-based categorization, trailer viewing, and fully responsive modern UI.",
+    desc: "Netflix‑inspired streaming with genre discovery & trailers.",
     links: [
       { url: "https://habesha-play-trailers.vercel.app/", text: "Live Demo", icon: Play },
       { url: "https://github.com/gechjs/Habesha-Play", text: "GitHub", icon: Github }
     ],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-purple-400",
-    bgPattern: "radial-gradient(circle at 40% 60%, rgba(168,85,247,0.1) 0%, transparent 50%)"
   },
   {
     id: 4,
     title: "MWCCO",
     img: mwcc,
-    desc: "A responsive web platform for Meheret Women & Children's Charitable Organization that streamlines volunteer coordination, event management, and secure donations, supporting impactful initiatives for women and children in Addis Ababa.",
-    links: [
-      { url: "https://mwcoo-frontend-62s8.vercel.app/", text: "Live Platform", icon: Globe }
-    ],
+    desc: "Volunteer & donation platform for women/children in Ethiopia.",
+    links: [{ url: "https://mwcoo-frontend-62s8.vercel.app/", text: "Live Platform", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-green-400",
-    bgPattern: "radial-gradient(circle at 50% 50%, rgba(34,197,94,0.1) 0%, transparent 50%)"
   },
   {
     id: 5,
     title: "House Rental Platform",
     img: houseRental,
-    desc: "A comprehensive house rental platform that connects property owners with tenants. Features property listings, advanced search filters by city, subcity, price range, and bedrooms, booking management, and secure payment processing. Built to streamline the rental process in Addis Ababa.",
-    links: [
-      { url: "https://yba.onrender.com/", text: "Live Platform", icon: Globe }
-    ],
+    desc: "Search, book & pay for rentals in Addis Ababa.",
+    links: [{ url: "https://yba.onrender.com/", text: "Live Platform", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-cyan-400",
-    bgPattern: "radial-gradient(circle at 30% 80%, rgba(34,211,238,0.1) 0%, transparent 50%)"
   },
   {
     id: 6,
     title: "Kibkab Pharmacy",
     img: [pharmacy0, pharmacy1, pharmacy2],
-    desc: "Full-stack web application with React/TypeScript frontend and Go backend, featuring inventory management, sales tracking, customer management, and reporting for kibkab pharmacy operations.",
-    links: [
-      { url: "#", text: "Live Demo - Coming Soon", icon: Rocket }
-    ],
+    desc: "Inventory, sales & customer management for pharmacies.",
+    links: [{ url: "#", text: "Live Demo - Coming Soon", icon: Rocket }],
     gradient: "from-purple-500 to-pink-600",
-    lightGradient: "from-orange-400 to-red-500",
-    iconColor: "text-cyan-400",
-    bgPattern: "radial-gradient(circle at 70% 20%, rgba(6,182,212,0.1) 0%, transparent 50%)"
   }
 ];
 
 // ---------- Optimized Image Component ----------
-const OptimizedImage = ({ src, alt, className, ...props }) => {
+const OptimizedImage = ({ src, alt, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const getImageSrc = (src) => {
     if (typeof src === 'string') return src;
-    if (src && typeof src === 'object') {
-      if (src.src) return src.src;
-      if (src.default) return src.default;
-      if (Array.isArray(src)) return src[0];
-      return src;
-    }
+    if (src?.src) return src.src;
+    if (src?.default) return src.default;
+    if (Array.isArray(src)) return src[0];
     return src;
   };
 
   const imageSrc = getImageSrc(src);
 
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development' && imageSrc) {
-      console.log('Image src:', imageSrc, 'Type:', typeof imageSrc);
-    }
-  }, [imageSrc]);
-
   return (
-    <div className="image-wrapper" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      {/* Subtle professional border */}
-      <div style={{
-        position: 'absolute',
-        inset: '0px',
-        border: '1.5px solid rgba(255, 255, 255, 0.4)',
-        borderRadius: '4px',
-        zIndex: 1,
-        pointerEvents: 'none'
-      }} />
-      {!isLoaded && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'rgba(255, 255, 255, 0.05)',
-            zIndex: 1,
-          }}
-        >
-          <div className="shimmer" style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
-            animation: 'shimmer 2s infinite',
-          }} />
-        </motion.div>
-      )}
+    <div className="image-wrapper">
+      {!isLoaded && <div className="shimmer" />}
       <motion.img
         src={imageSrc}
         alt={alt}
-        className={className}
         loading="lazy"
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
         initial={{ opacity: 0 }}
         animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 2 }}
-        crossOrigin="anonymous"
+        transition={{ duration: 0.3 }}
         {...props}
       />
-      {isError && (
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(255, 255, 255, 0.05)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#666',
-          zIndex: 3
-        }}>
-          Failed to load
-        </div>
-      )}
-       {/* Top‑left pink corner – outside but visible */}
-        <div style={{
-          position: 'absolute',
-          top: '-2px',
-          left: '-2px',
-          width: '30px',
-          height: '30px',
-          borderTop: '3px solid #ec4899',
-          borderLeft: '3px solid #ec4899',
-          zIndex: 3,
-          pointerEvents: 'none',
-        }} />
-
-        {/* Bottom‑right pink corner – outside but visible */}
-        <div style={{
-          position: 'absolute',
-          bottom: '-2px',
-          right: '-2px',
-          width: '30px',
-          height: '30px',
-          borderBottom: '3px solid #ec4899',
-          borderRight: '3px solid #ec4899',
-          zIndex: 3,
-          pointerEvents: 'none',
-        }} />
+      {isError && <div className="image-error">Failed to load</div>}
+      <div className="corner top-left" />
+      <div className="corner bottom-right" />
     </div>
   );
 };
 
-// ---------- Project Preview Component (with corner accents) ----------
-const ProjectPreview = ({ item, position, onClick, carouselSpeed }) => {
+// ---------- Project Preview (Next Project) ----------
+const ProjectPreview = ({ item, onClick, carouselSpeed, isMobile }) => {
   return (
     <motion.div
-      className={`project-preview project-preview--${position}`}
+      className="project-preview"
       initial={{ y: 100, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
-      whileHover={{ scale: 1.02, backgroundColor: 'rgba(0,0,0,0.6)' }}
-      transition={{
-        type: "spring",
-        stiffness: carouselSpeed.navigation.stiffness,
-        damping: carouselSpeed.navigation.damping
-      }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "spring", stiffness: carouselSpeed.navigation.stiffness, damping: carouselSpeed.navigation.damping }}
       onClick={onClick}
       style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: '120px',
-        background: 'rgba(0,0,0,0.4)',
-        backdropFilter: 'blur(10px)',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 3rem',
-        cursor: 'pointer',
-        zIndex: 0,
-        boxShadow: '0 -10px 50px rgba(0,0,0,0.5)'
+        height: isMobile ? 80 : 120,
+        padding: isMobile ? '0 1rem' : '0 3rem',
       }}
     >
-      {/* Background gradient */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: `linear-gradient(90deg, ${item.gradient}, transparent)`,
-        opacity: 0.05,
-        zIndex: -1
-      }} />
-
-      {/* Image wrapper – relative to anchor absolute corners */}
+      <div className="preview-bg" style={{ background: `linear-gradient(90deg, ${item.gradient}, transparent)` }} />
       <motion.div
+        className="preview-image"
         initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
-        style={{
-          width: '180px',
-          height: '100%',
-          position: 'absolute',
-          left: 0,
-          bottom: 0,
-          maskImage: 'linear-gradient(90deg, black 60%, transparent)',
-          WebkitMaskImage: 'linear-gradient(90deg, black 60%, transparent)',
-          opacity: 0.8,
-          position: 'relative'   // crucial for absolute children
-        }}
+        style={{ width: isMobile ? 100 : 180 }}
       >
-        <OptimizedImage
-          src={Array.isArray(item.img) ? item.img[0] : item.img}
-          alt={item.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-
-       
+        <OptimizedImage src={Array.isArray(item.img) ? item.img[0] : item.img} alt={item.title} />
       </motion.div>
-
-      {/* Spacer to push text right */}
-      <div style={{ width: '160px' }} />
-
-      {/* Text Content */}
+      <div className="preview-text">
+        <span className="preview-label">Next Project</span>
+        <span className="preview-title">{item.title}</span>
+      </div>
       <motion.div
-        initial={{ x: 50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
-        style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '1rem', zIndex: 10 }}
-      >
-        <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-          Next Project
-        </span>
-        <span style={{ fontSize: '1.75rem', fontWeight: '800', color: 'white', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-          {item.title}
-        </span>
-      </motion.div>
-
-      {/* Action Arrow */}
-      <motion.div
-        initial={{ x: 50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
+        className="preview-arrow"
         whileHover={{ x: 10 }}
-        transition={{ type: "spring", stiffness: carouselSpeed.elements.stiffness }}
-        style={{
-          opacity: 0.8,
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.1)',
-          backdropFilter: 'blur(5px)',
-          border: '1px solid rgba(255,255,255,0.1)'
-        }}
+        style={{ width: isMobile ? 40 : 50, height: isMobile ? 40 : 50 }}
       >
-        <span style={{ fontSize: '1.5rem' }}>→</span>
+        <span>→</span>
       </motion.div>
     </motion.div>
   );
 };
 
-// ---------- Single Project Component – main image with corners exactly at image edge ----------
-const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) => {
+// ---------- Single Project Component ----------
+const Single = ({ item, index, nextItem, onActive, carouselSpeed }) => {
   const sectionRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const isEven = index % 2 === 0;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -357,28 +180,9 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: carouselSpeed.parallax.stiffness,
     damping: carouselSpeed.parallax.damping,
-    restDelta: 0.001
   });
 
-  const imageParallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const textParallaxY = useTransform(smoothProgress, [0, 1], [40, -40]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
-  };
 
   const scrollToProject = (targetId) => {
     document.getElementById(`project-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -388,111 +192,48 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
     <motion.section
       id={`project-${item.id}`}
       ref={sectionRef}
-      className="portfolio-section mb-8 lg:mb-6"
-      style={{
-        height: '80vh',
-        position: 'relative',
-        backgroundColor: 'black',
-        color: 'white',
-        overflow: 'hidden',
-        scrollSnapAlign: 'center',
-        scrollMarginTop: '5vh'
-      }}
+      className="portfolio-section"
+      style={{ height: isMobile ? 'auto' : '80vh', minHeight: '600px' }}
       initial="hidden"
       whileInView="visible"
       viewport={{ amount: 0.3, once: true }}
       onViewportEnter={() => onActive(index)}
     >
-      <div className="absolute inset-0" style={{
-        background: 'linear-gradient(135deg, #000000 0%, #0a0a0a 100%)',
-        zIndex: 0
-      }} />
+      <div className="section-background" />
 
       {nextItem && (
         <ProjectPreview
           item={nextItem}
-          position="bottom"
           onClick={() => scrollToProject(nextItem.id)}
           carouselSpeed={carouselSpeed}
+          isMobile={isMobile}
         />
       )}
 
-      <div className="container" style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '0 1rem sm:0 2rem' }}>
-        <motion.div
-          className="wrapper"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '3rem',
-            height: '100%',
-            minHeight: '70vh'
-          }}
-          variants={containerVariants}
-        >
-          {/* Image and Text Container */}
-          <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-12 lg:gap-16 w-full">
-            {/* Image */}
+      <div className="container" style={{ padding: isMobile ? '1rem' : '0 2rem' }}>
+        <motion.div className="wrapper" variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { duration: 0.6 } }
+        }}>
+          {/* On mobile: title & description first, then image (via flex-col) */}
+          <div className={`content-layout ${isMobile ? 'mobile-layout' : ''}`}>
+            {/* Text Block */}
             <motion.div
-              className="w-full max-w-md mx-auto lg:w-auto lg:flex-1"
-              style={{
-                position: 'relative'
+              className="text-block"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
               }}
-              variants={childVariants}
-            >
-              <motion.div
-                style={{
-                  position: 'relative',
-                  padding: '0',
-                  background: 'transparent',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.03)',
-                  transition: 'border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.2s ease'
-                }}
-                whileHover={{
-                  border: '2px solid rgba(236,72,153,0.8)',
-                  boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(236,72,153,0.4), 0 0 0 1px rgba(236,72,153,0.2)',
-                  zIndex: 1
-                }}
-              >
-                <OptimizedImage
-                  src={Array.isArray(item.img) ? item.img[0] : item.img}
-                  alt={item.title}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  style={{ width: '100%', height: 'auto', maxHeight: '400px', objectFit: 'cover' }}
-                />
-              </motion.div>
-            </motion.div>
-
-            {/* Text */}
-            <motion.div
-              className="w-full max-w-2xl mx-auto lg:w-auto lg:flex-1 lg:text-left text-center"
-              variants={childVariants}
             >
               <motion.div style={{ y: !isMobile ? textParallaxY : 0 }}>
-                <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 4rem)', fontWeight: '800', lineHeight: 1.1, marginBottom: '0rem' }}>
-                  <span style={{
-                    background: `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`,
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    color: '#ffffff',
-                    filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))'
-                  }}>
+                <h2 className="project-title">
+                  <span className="gradient-text" style={{ backgroundImage: `linear-gradient(135deg, #a855f7, #ec4899)` }}>
                     {item.title}
                   </span>
                 </h2>
-
-                <p style={{ fontSize: '1rem', color: '#e5e7eb', lineHeight: 1.7, maxWidth: '600px', marginBottom: '2.5rem', fontWeight: '400', padding: '0 1rem' }}>
-                  {item.desc}
-                </p>
-
-                {/* Action Buttons */}
-                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                  {item.links.filter((link, i) => i === 0 || i === 1).map((link, i) => {
+                <p className="project-description">{item.desc}</p>
+                <div className="button-group">
+                  {item.links.slice(0, 2).map((link, i) => {
                     const isPrimary = i === 0;
                     return (
                       <a
@@ -500,37 +241,32 @@ const Single = ({ item, index, prevItem, nextItem, onActive, carouselSpeed }) =>
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{
-                          position: 'relative',
-                          padding: '0.75rem 1.5rem',
-                          borderRadius: '12px',
-                          fontWeight: '600',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          background: isPrimary
-                            ? `linear-gradient(135deg, ${item.gradient.includes('emerald') ? '#10b981' : item.gradient.includes('blue') ? '#3b82f6' : item.gradient.includes('purple') ? '#a855f7' : item.gradient.includes('orange') ? '#f97316' : '#06b6d4'}, ${item.gradient.includes('teal') ? '#14b8a6' : item.gradient.includes('indigo') ? '#6366f1' : item.gradient.includes('pink') ? '#ec4899' : item.gradient.includes('red') ? '#ef4444' : '#0891b2'})`
-                            : 'rgba(255,255,255,0.08)',
-                          border: isPrimary
-                            ? '1px solid rgba(255,255,255,0.15)'
-                            : '1px solid rgba(255,255,255,0.1)',
-                          color: 'white',
-                          textDecoration: 'none',
-                          transition: 'all 0.2s ease',
-                          boxShadow: isPrimary
-                            ? '0 4px 12px rgba(0,0,0,0.15)'
-                            : '0 2px 8px rgba(0,0,0,0.1)'
-                        }}
+                        className={`project-button ${isPrimary ? 'primary' : 'secondary'}`}
                       >
-                        <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          {link.icon && <link.icon size={14} style={{ color: isPrimary ? 'white' : 'rgba(255,255,255,0.8)' }} />}
-                          <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>{link.text}</span>
-                        </span>
+                        {link.icon && <link.icon size={14} />}
+                        <span>{link.text}</span>
                       </a>
                     );
                   })}
                 </div>
               </motion.div>
+            </motion.div>
+
+            {/* Image Block */}
+            <motion.div
+              className="image-block"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+              }}
+            >
+              <div className="image-frame">
+                <OptimizedImage
+                  src={Array.isArray(item.img) ? item.img[0] : item.img}
+                  alt={item.title}
+                  style={{ maxHeight: isMobile ? 250 : 400 }}
+                />
+              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -547,83 +283,30 @@ const Portfolio = () => {
     offset: ["start start", "end end"]
   });
 
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 150,
-    damping: 30,
-    restDelta: 0.001
-  });
+  // Smooth spring for progress bar width
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
+  // Map progress to width percentage (0% to 100%)
+  const progressWidth = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+
   const carouselSpeed = {
     parallax: { stiffness: 100, damping: 30 },
     elements: { stiffness: 80, damping: 25 },
-    hover: { duration: 0.3 },
-    floating: { imageDuration: 0, textDuration: 0 },
     navigation: { stiffness: 100, damping: 20 }
   };
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  
-  const scrollToProject = (index) => {
-    setActiveIndex(index);
-    const targetId = items[index].id;
-    const element = document.getElementById(`project-${targetId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
-    <div 
-      className="portfolio" 
-      ref={ref} 
-      style={{ 
-        backgroundColor: 'black', 
-        color: 'white', 
-        position: 'relative',
-        scrollSnapType: 'y mandatory',
-        scrollBehavior: 'smooth',
-        maxWidth: '100%',
-        margin: '0 auto'
-      }}
-    >
-      <motion.div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(88,28,135,0.1), transparent, rgba(8,145,178,0.1))',
-          y: bgY,
-          zIndex: 1
-        }}
-      />
+    <div className="portfolio" ref={ref}>
+      <motion.div className="background-gradient" style={{ y: bgY }} />
 
-      <div className="progress" style={{ 
-        zIndex: 60, 
-        background: 'linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.8))',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '3px solid rgba(255,255,255,0.1)',
-        textAlign: 'center',
-        padding: '2rem 1rem'
-      }}>
-        <h1 style={{ 
-          fontSize: 'clamp(3rem, 4vw, 3.5rem)', 
-          fontWeight: '800', 
-          background: 'linear-gradient(135deg, #a855f7, #ec4899, #06b6d4)',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          color: '#ffffff',
-          marginBottom: '1rem',
-          textShadow: '0 0 30px rgba(255,255,255,0.2)'
-        }}>Featured Works</h1>
-        <motion.div style={{ 
-          scaleX, 
-          height: '8px',
-          background: 'linear-gradient(90deg, #ffffff, #f0f0f0, #ffffff)',
-          borderRadius: '0px',
-          boxShadow: '0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.3)',
-          border: '1px solid rgba(255,255,255,0.8)'
-        }} className="progressBar"></motion.div>
+      <div className="progress-header">
+        <h1>Featured Works</h1>
+        {/* Progress bar centered and expands horizontally */}
+        <div className="progress-container">
+          <motion.div className="progress-bar" style={{ width: progressWidth }} />
+        </div>
       </div>
 
       {items.map((item, index) => (
@@ -631,7 +314,6 @@ const Portfolio = () => {
           key={item.id}
           item={item}
           index={index}
-          prevItem={items[index - 1]}
           nextItem={items[index + 1]}
           onActive={setActiveIndex}
           carouselSpeed={carouselSpeed}
