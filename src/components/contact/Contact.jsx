@@ -156,7 +156,7 @@ const Contact = () => {
             </div>
             
             <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

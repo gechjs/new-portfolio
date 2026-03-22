@@ -54,7 +54,7 @@ const Skills = () => {
         { name: 'React', icon: <DiReact className="text-cyan-400" /> },
         { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
         { name: 'Redux', icon: <SiRedux className="text-purple-400" /> },
-        { name: 'Tailwind CSS', icon: <SiTailwindcss style={{ color: '#14b8a6', fontSize: '1.7rem' }} /> },
+        { name: 'Tailwind CSS', icon: <SiTailwindcss style={{ color: '#14b8a6', fontSize: '1.9rem' }} /> },
       ],
     },
     {
@@ -89,10 +89,8 @@ const Skills = () => {
         { name: 'GitHub', icon: <SiGithub className="text-white" /> },
         { name: 'GitHub Actions', icon: <SiGithubactions className="text-blue-500" /> },
         { name: 'Docker', icon: <DiDocker className="text-blue-400" /> },
-        { name: 'AWS', icon: <DiAws className="text-yellow-500" /> },
-        { name: 'Heroku', icon: <DiHeroku className="text-purple-400" /> },
         { name: 'cPanel', icon: <SiCpanel className="text-orange-400" /> },
-        { name: 'Vite', icon: <SiVite className="text-yellow-300" /> },
+  
         { name: 'Postman', icon: <SiPostman className="text-orange-400" /> },
         { name: 'Figma', icon: <SiFigma className="text-purple-400" /> },
         { name: 'Jira', icon: <SiJira className="text-blue-400" /> },
@@ -120,10 +118,10 @@ const Skills = () => {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
-          width: '95px',
-          height: '95px',
-          minWidth: '95px',
-          minHeight: '95px'
+          width: '105px',
+          height: '105px',
+          minWidth: '105px',
+          minHeight: '105px'
         }}
       >
         {/* subtle gradient overlay */}
@@ -144,7 +142,7 @@ const Skills = () => {
           className="mb-1 text-3xl md:text-4xl transition-transform duration-300 group-hover:scale-110"
           style={{
             marginBottom: '4px',
-            fontSize: '1.4rem',
+            fontSize: '1.6rem',
             transition: 'transform 0.3s'
           }}
         >
@@ -155,7 +153,7 @@ const Skills = () => {
         <p 
           className="text-[10px] md:text-xs font-medium text-zinc-300 group-hover:text-white transition-colors tracking-tight"
           style={{
-            fontSize: '11px',
+            fontSize: '12px',
             fontWeight: '500',
             color: '#d4d4d8',
             transition: 'color 0.3s',
@@ -209,7 +207,7 @@ const Skills = () => {
           {sections.map((section) => (
             <section key={section.id} style={{ scrollMarginTop: '5rem' }}>
               <h2 style={{ 
-                fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', 
+                fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)', 
                 fontWeight: '500', 
                 color: '#ffffff', 
                 marginBottom: '1.5rem',
@@ -225,7 +223,7 @@ const Skills = () => {
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  gap: '12px',
+                  gap: '20px',
                   justifyContent: 'flex-start',
                   alignItems: 'center',
                   width: '100%',

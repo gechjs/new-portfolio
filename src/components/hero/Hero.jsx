@@ -7,10 +7,10 @@ import ProjectShowcase from './ProjectShowcase'
 const Hero = () => {
   return (
     <>
-      {/* Hero Section – Apple-level minimal elegance */}
       <div className="min-h-screen bg-black relative">
-        {/* Ultra-subtle noise texture */}
-        <div className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
+        {/* Noise texture (unchanged) */}
+        <div
+          className="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
@@ -18,24 +18,28 @@ const Hero = () => {
           }}
         />
 
-        {/* Project Showcase as living background */}
+        {/* Project Showcase background */}
         <div className="absolute inset-0 z-0">
           <ProjectShowcase />
         </div>
 
-        {/* Main Content */}
-        <div className="relative z-20 min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* Main Content – Added pt-24 to account for fixed navbar */}
+        <div
+          className="relative z-20 min-h-screen flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pt-24 md:pt-28" // ← added top padding
+          style={{ paddingTop: 'calc(env(safe-area-inset-top) + 6rem)' }} // fallback with safe area
+        >
           <div className="max-w-7xl mx-auto w-full">
-            <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
-              {/* Left Content – refined typography hierarchy */}
+            <div className="flex flex-col lg:flex-row items-center gap-12 sm:gap-16 lg:gap-20">
+              {/* Left Column */}
               <motion.div
-                className="flex-1 text-center lg:text-left order-1"
+                className="flex-1 text-center lg:text-left order-1 w-full"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
+                {/* Heading – removed mt-4/sm:mt-8/lg:mt-14 because padding-top now handles spacing */}
                 <motion.h1
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.05] tracking-[-2px] mb-6 sm:mb-8 mt-8 sm:mt-14"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.05] tracking-[-2px] mb-6 sm:mb-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1.2, delay: 0.2 }}
@@ -44,6 +48,7 @@ const Hero = () => {
                   <span className="text-pink-500 font-serif tracking-[2px] sm:tracking-[4px]"> MOHAMMED</span>
                 </motion.h1>
 
+                {/* rest of the content remains the same */}
                 <motion.div
                   className="text-lg sm:text-xl md:text-2xl text-gray-300 font-serif mb-8 sm:mb-10"
                   initial={{ opacity: 0 }}
@@ -51,7 +56,7 @@ const Hero = () => {
                   transition={{ duration: 1, delay: 0.4 }}
                 >
                   <span className="text-white font-semibold text-base sm:text-lg md:text-xl lg:text-2xl">
-                    NEXT-LEVEL Full-Stack DEVELOPER & AI ENGINEER
+                    NEXT-LEVEL FULL-STACK DEVELOPER 
                   </span>
                 </motion.div>
 
@@ -65,15 +70,15 @@ const Hero = () => {
                   <span className="text-pink-400 font-medium"> integrity-focused solutions</span> that connect millions of people through elegant, scalable technology.
                 </motion.p>
 
-                {/* CTA Buttons */}
+                {/* CTA Buttons – unchanged */}
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4 justify-center mb-14"
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12 sm:mb-16"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.8 }}
                 >
                   <motion.button
-                    className="px-8 py-4 bg-pink-500 text-white font-medium rounded-2xl hover:bg-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/20"
+                    className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-medium rounded-2xl hover:from-pink-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-pink-500/30"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -84,7 +89,7 @@ const Hero = () => {
                   </motion.button>
                   <motion.a
                     href="#contact"
-                    className="px-8 py-4 bg-white/5 backdrop-blur-sm text-white font-medium rounded-2xl hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20"
+                    className="w-full sm:w-auto px-8 py-4 bg-white/5 backdrop-blur-sm text-white font-medium rounded-2xl hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -95,9 +100,9 @@ const Hero = () => {
                   </motion.a>
                 </motion.div>
 
-                {/* Social Links - Professional coloring */}
+                {/* Social Links – unchanged */}
                 <motion.div
-                  className="flex justify-center lg:justify-start gap-5"
+                  className="flex justify-center lg:justify-start flex-wrap gap-4 sm:gap-5"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 1.1 }}
@@ -148,9 +153,9 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Right Content – Premium Hero Image */}
+              {/* Right Column – ImageCard remains the same but ensure it doesn’t overflow */}
               <motion.div
-                className="flex-1 flex justify-center lg:justify-end mt-8 lg:mt-0 order-2"
+                className="flex-1 flex justify-center lg:justify-end order-2 w-full"
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -160,33 +165,33 @@ const Hero = () => {
             </div>
           </div>
         </div>
-
-        {/* Refined scroll indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-        >
-          <div className="text-[10px] tracking-[2px] text-white/50 font-light">SCROLL TO EXPLORE</div>
-          <div className="w-5 h-9 rounded-full border border-white/20 flex items-center justify-center">
-            <motion.div
-              className="w-0.5 h-2.5 bg-pink-500 rounded-full"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-        </motion.div>
       </div>
+
+      {/* Scroll indicator moved outside relative container – fixed to viewport bottom */}
+      <motion.div
+        className="fixed bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8 }}
+      >
+        <div className="text-[10px] tracking-[2px] text-white/50 font-light">SCROLL TO EXPLORE</div>
+        <div className="w-5 h-9 rounded-full border border-white/20 flex items-center justify-center">
+          <motion.div
+            className="w-0.5 h-2.5 bg-pink-500 rounded-full"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
     </>
   )
 }
 
-// Apple-grade hero portrait with signature glowing orb
+// ImageCard with added overflow-hidden to prevent glow from overlapping text
 const ImageCard = ({ imageSrc }) => {
   return (
-    <div className="relative w-full max-w-[400px] sm:max-w-[500px] mx-auto max-h-[250px] xs:max-h-[280px] sm:max-h-[350px] flex items-center justify-center">
-      {/* Signature glowing orb */}
+    <div className="relative w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[400px] mx-auto flex items-center justify-center overflow-hidden"> {/* ← added overflow-hidden */}
+      {/* Signature glowing orb – now clipped by parent overflow */}
       <motion.div
         className="absolute -bottom-16 -left-20 w-[340px] h-[340px] rounded-full blur-[130px] z-0 pointer-events-none"
         style={{
@@ -204,10 +209,10 @@ const ImageCard = ({ imageSrc }) => {
         }}
       />
 
-      {/* Image container with professional styling */}
+      {/* Image container */}
       <motion.div
-        className="relative overflow-hidden rounded-[3rem] shadow-2xl shadow-black/80 border-4 border-pink-900/60 bg-black"
-        style={{ transform: 'rotate(3deg)' }}
+        className="relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] shadow-2xl shadow-black/80 border-4 border-pink-900/60 bg-black"
+        style={{ transform: 'rotate(1.5deg) sm:rotate(3deg)' }}
         whileHover={{ scale: 1.015, rotate: 0, borderColor: '#ec4899' }}
         transition={{ type: "spring", stiffness: 280, damping: 22 }}
       >
@@ -218,11 +223,11 @@ const ImageCard = ({ imageSrc }) => {
           style={{ objectPosition: 'center 20%' }}
         />
 
-        {/* Subtle cinematic vignette for depth */}
+        {/* Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/30" />
 
-        {/* Professional badge overlay */}
+        {/* Professional badge */}
         <div className="absolute bottom-4 left-4 right-4">
           <div className="bg-black/40 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
             <div className="flex items-center justify-between text-xs text-white/80">

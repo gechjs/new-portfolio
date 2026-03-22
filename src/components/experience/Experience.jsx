@@ -170,7 +170,7 @@ const Experience = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-20 md:mb-28"
         >
-          <h2 className="text-4xl md:text-6xl font-light tracking-tight mb-4 bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight mb-4 bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
             Professional Experience
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto text-lg md:text-xl font-light">

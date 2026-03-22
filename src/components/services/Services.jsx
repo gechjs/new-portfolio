@@ -73,7 +73,7 @@ const Services = () => {
           transition={{ duration: 0.7, delay: 0.2, ...transition }}
           className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.02em] mb-5 bg-gradient-to-br from-white via-zinc-100 to-pink-300 bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-[-0.02em] mb-5 bg-gradient-to-br from-white via-zinc-100 to-pink-300 bg-clip-text text-transparent">
             Full‑Stack Development
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed">
@@ -108,7 +108,7 @@ const Services = () => {
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="text-4xl sm:text-5xl md:text-6xl font-light text-zinc-700 group-hover:text-zinc-600 transition-all duration-500"
+                  className="text-2xl sm:text-3xl md:text-4xl font-light text-zinc-700 group-hover:text-zinc-600 transition-all duration-500"
                 >
                   {service.number}
                 </motion.div>

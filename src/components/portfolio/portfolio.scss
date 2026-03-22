@@ -26,7 +26,7 @@
     padding: 2rem 1rem 1rem;
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 800;
       background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
       -webkit-background-clip: text;
@@ -124,7 +124,7 @@
     }
 
     .project-title {
-      font-size: clamp(2rem, 4vw, 4rem);
+      font-size: clamp(1.3rem, 3vw, 2.2rem);
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 1.5rem;

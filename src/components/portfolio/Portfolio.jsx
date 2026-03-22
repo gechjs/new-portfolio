@@ -39,7 +39,7 @@ const items = [
     id: 1,
     title: "Fresh Start House",
     img: freshstart,
-    desc: "Sober living & transitional support for long-term recovery.",
+    desc: "Sober living platform with transitional housing, recovery support services, resident management, and progress tracking dashboard.",
     links: [{ url: "https://freshstarthouse.com/", text: "Live Site", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
   },
@@ -47,7 +47,7 @@ const items = [
     id: 2,
     title: "Abe Garage Pro",
     img: garageImg,
-    desc: "Garage management with real-time analytics & insights.",
+    desc: "Garage management system with vehicle tracking, service scheduling, inventory management, analytics dashboard, and customer relationship management.",
     links: [
       { url: "https://abebe-garage.netlify.app/", text: "Live Demo", icon: Rocket },
       { url: "https://github.com/gechjs/Abe-Garage-Pro", text: "GitHub", icon: Github }
@@ -58,7 +58,7 @@ const items = [
     id: 3,
     title: "Habesha Play",
     img: habeshaPlayImg,
-    desc: "Netflix‑inspired streaming with genre discovery & trailers.",
+    desc: "Netflix-inspired streaming platform with personalized content discovery, genre browsing, trailer previews, watchlist management, and user profiles.",
     links: [
       { url: "https://habesha-play-trailers.vercel.app/", text: "Live Demo", icon: Play },
       { url: "https://github.com/gechjs/Habesha-Play", text: "GitHub", icon: Github }
@@ -69,7 +69,7 @@ const items = [
     id: 4,
     title: "MWCCO",
     img: mwcc,
-    desc: "Volunteer & donation platform for women/children in Ethiopia.",
+    desc: "Volunteer coordination and donation platform for women and children's organizations with matching, tracking, event management, and impact reporting.",
     links: [{ url: "https://mwcoo-frontend-62s8.vercel.app/", text: "Live Platform", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
   },
@@ -77,7 +77,7 @@ const items = [
     id: 5,
     title: "House Rental Platform",
     img: houseRental,
-    desc: "Search, book & pay for rentals in Addis Ababa.",
+    desc: "Property rental platform for Addis Ababa with advanced search, virtual tours, secure payments, tenant screening, and landlord dashboard.",
     links: [{ url: "https://yba.onrender.com/", text: "Live Platform", icon: Globe }],
     gradient: "from-purple-500 to-pink-600",
   },
@@ -85,7 +85,7 @@ const items = [
     id: 6,
     title: "Kibkab Pharmacy",
     img: [pharmacy0, pharmacy1, pharmacy2],
-    desc: "Inventory, sales & customer management for pharmacies.",
+    desc: "Pharmacy management system with inventory tracking, prescription management, sales analytics, customer records, and automated reorder alerts.",
     links: [{ url: "#", text: "Live Demo - Coming Soon", icon: Rocket }],
     gradient: "from-purple-500 to-pink-600",
   }
